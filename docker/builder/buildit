@@ -1,0 +1,14 @@
+#!/bin/sh
+cd /var/workdir
+
+cp -r /var/src/* /var/workdir
+
+ant xar
+
+if [ $? -ne 0 ]
+then
+    echo "could not build"
+    exit 1
+fi
+
+cp build/* /var/dst

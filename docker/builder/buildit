@@ -3,6 +3,8 @@ cd /var/workdir
 
 cp -r /var/src/* /var/workdir
 
+sed -i "s/XXX/${VERSION}/" expath-pkg.xml >> expath-pkg.xml
+
 ant xar
 
 if [ $? -ne 0 ]

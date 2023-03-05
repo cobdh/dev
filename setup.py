@@ -21,8 +21,9 @@ setuptools.setup(
     ],
     packages=[
         'cobdh',
+        'cobdh.xml',
     ],
     entry_points={
-        'console_scripts': ['cob_xml = cobdh.cob_xml:main'],
+        'console_scripts': ['cob_xml = cobdh.xml.cli:main'],
     },
 )

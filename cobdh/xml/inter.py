@@ -1,3 +1,4 @@
+import cobdh.xml.parser
 from cobdh.xml.formatter import ET
 
 HEADER = '<?xml version="1.0" encoding="utf-8"?>'
@@ -21,10 +22,7 @@ def xmlformat(source: str, header: bool = True) -> str:
     '<biblStruct\n    xml:id="Hovhanessian2013"\n    type="bookSection"\n>\n    ABC\n</biblStruct>\n'
     """
     raw = flat(source)
-    parsed = ET.fromstring(
-        raw + '\n',
-        parser_create(),
-    )
+    parsed = cobdh.xml.parser.parse(raw)
     formatted = ET.tostring(
         parsed,
         encoding='unicode',
@@ -38,19 +36,11 @@ def xmlformat(source: str, header: bool = True) -> str:
     return result
 
 
-def parser_create():
-    parser = ET.XMLParser(target=ET.TreeBuilder(
-        insert_comments=True,
-        insert_pis=True,
-    ))
-    return parser
-
-
 def flat(source: str) -> str:
     try:
         parsed = ET.fromstring(
             source,
-            parser=parser_create(),
+            parser=cobdh.xml.parser.parser_create(),
         )
     except ET.ParseError as error:
         raise ValueError(f'invalid xml: {error}\n "{source}"') from error

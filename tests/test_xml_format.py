@@ -17,12 +17,8 @@ SAMPLE = """\
                     : Introduction and a New Translation of the Armenian Version
                 </title>
                 <author>
-                    <forename>
-                        Vahan
-                    </forename>
-                    <surname>
-                        Hovhanessian
-                    </surname>
+                    <forename>Vahan</forename>
+                    <surname>Hovhanessian</surname>
                 </author>
             </analytic>
         </biblStruct>
@@ -69,3 +65,17 @@ NAMESPACE = """\
 def test_namespace():
     formatted = cobdh.xml.inter.xmlformat(NAMESPACE)
     assert formatted == NAMESPACE, formatted
+
+
+SHORT = """\
+<?xml version="1.0" encoding="utf-8"?>
+<catalogue xml:lang="de">
+    <msg key="bibl_bibliography">Bibliographie</msg>
+    <msg key="bibl_record">Bibliographie-Eintrag</msg>
+</catalogue>
+"""
+
+
+def test_single_short():
+    formatted = cobdh.xml.inter.xmlformat(SHORT)
+    assert formatted == SHORT, formatted

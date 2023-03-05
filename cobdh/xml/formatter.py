@@ -1,6 +1,7 @@
 import textwrap
 import xml.etree.ElementTree as ET
 
+SHORT_ITEM_WIDTH_MAX = 40
 # pylint:disable=C0103
 
 
@@ -60,14 +61,24 @@ def cobdh_xml(write, elem, qnames, namespaces, short_empty_elements, **kwargs): 
                     write(f'{before}{value_item}{after}')
                     index += 1
             if text or len(elem) or not short_empty_elements:
+                short = not len(elem)
+                short = short and len(text.strip()) < SHORT_ITEM_WIDTH_MAX
+                # do not shorten more than one attribute
+                short = short and numbers <= 1
                 if numbers <= 1:
                     # zero or one attribute
-                    write(">\n")
+                    if short:
+                        write(">")
+                    else:
+                        write(">\n")
                 else:
                     write(ident + ">\n")
                 if text:
-                    single = ident_text(text, ident + ' ' * 4)
-                    write(single)
+                    if short:
+                        line = text.strip()
+                    else:
+                        line = ident_text(text, ident + ' ' * 4)
+                    write(line)
                 for e in elem:
                     cobdh_xml(
                         write,
@@ -77,7 +88,10 @@ def cobdh_xml(write, elem, qnames, namespaces, short_empty_elements, **kwargs): 
                         short_empty_elements=short_empty_elements,
                         level=level,
                     )
-                write(ident + "</" + tag + ">\n")
+                if short:
+                    write("</" + tag + ">\n")
+                else:
+                    write(ident + "</" + tag + ">\n")
             else:
                 if len(items) <= 1:  # pylint:disable=R5501
                     # zero or one attribute

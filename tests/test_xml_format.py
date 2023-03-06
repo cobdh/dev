@@ -1,3 +1,4 @@
+import cobdh.utils
 import cobdh.xml.inter
 
 SAMPLE = """\
@@ -79,3 +80,19 @@ SHORT = """\
 def test_single_short():
     formatted = cobdh.xml.inter.xmlformat(SHORT)
     assert formatted == SHORT, formatted
+
+
+def test_cli_format(testdir):
+    xml = testdir.tmpdir.join('abc.xml')
+    cobdh.utils.file_create(xml, NAMESPACE)
+    completed = cobdh.utils.run('cob_xml .')
+    # already well formatted
+    assert 'skip: abc.xml' in completed.stdout
+    # create bad formatted file
+    cobdh.utils.file_replace(xml, NAMESPACE.replace('   ', ''))
+    completed = cobdh.utils.run('cob_xml .')
+    # already well formatted
+    assert 'format: abc.xml' in completed.stdout
+    # format well formatted file, nothing todo
+    completed = cobdh.utils.run('cob_xml .')
+    assert 'skip: abc.xml' in completed.stdout

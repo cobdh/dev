@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 SUCCESS = 0
 FAILURE = 1
@@ -24,3 +25,21 @@ def file_create(path: str, content='') -> str:
     content = content.rstrip() + '\n'
     with open(path, mode='w', encoding='utf8', newline='\n') as fp:
         fp.write(content)
+
+
+def run(cmd: str, cwd: str = None):
+    """\
+    >>> run('ls')
+    CompletedProcess(args=['ls'], returncode=0, stdout='...', stderr='')
+    """
+    cmd = cmd.split()
+    cwd = cwd if cwd else os.getcwd()
+    completed = subprocess.run(
+        cmd,
+        cwd=cwd,
+        capture_output=True,
+        check=False,
+        encoding='utf8',
+        universal_newlines=True,
+    )
+    return completed

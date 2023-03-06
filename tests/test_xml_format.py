@@ -96,3 +96,27 @@ def test_cli_format(testdir):
     # format well formatted file, nothing todo
     completed = cobdh.utils.run('cob_xml .')
     assert 'skip: abc.xml' in completed.stdout
+
+
+NS_META = """\
+<?xml version="1.0" encoding="utf-8"?>
+<meta xmlns="http://exist-db.org/xquery/repo">
+    <description>TEI data used by cobdh-app</description>
+    <author>cobdh.org</author>
+    <website>http://cobdh.org/</website>
+    <status>alpha</status>
+    <license>GNU-LGPL</license>
+    <copyright>true</copyright>
+    <type>application</type>
+    <target>cobdh-data</target>
+    <prepare>pre-install.xql</prepare>
+    <finish>post-install.xql</finish>
+    <deployed>2015-04-23T13:17:07.65-04:00</deployed>
+</meta>
+"""
+
+
+def test_format_ns_meta():
+    """Do not replace default namespace with ns0."""
+    formatted = cobdh.xml.inter.xmlformat(NS_META)
+    assert formatted == NS_META, formatted

@@ -23,6 +23,7 @@ def xmlformat(source: str, header: bool = True) -> str:
     >>> xmlformat('<biblStruct type="bookSection" xml:id="Hovhanessian2013">ABC</biblStruct>', header=False)
     '<biblStruct\n    xml:id="Hovhanessian2013"\n    type="bookSection"\n>\n    ABC\n</biblStruct>\n'
     """
+    register_ns(source)
     raw = flat(source)
     parsed = cobdh.xml.parser.parse(raw)
     result = to_str(parsed, header)
@@ -67,3 +68,19 @@ def flat(source: str) -> str:
         result,
     )
     return result
+
+
+NAMESPACE = re.compile(
+    r'xmlns[ ]{0,3}\=[\"\'](http.+)[\"\']',
+    flags=re.VERBOSE | re.IGNORECASE,
+)
+
+
+def register_ns(content: str):
+    """Detect namespace to avoid ns0 as default namespace."""
+    # TODO: DETERMINE WHY
+    matched = NAMESPACE.search(content)
+    if not matched:
+        # could not find any default namespace
+        return
+    ET.register_namespace('', matched[1])

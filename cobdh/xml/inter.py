@@ -1,3 +1,5 @@
+import re
+
 import cobdh.xml.parser
 from cobdh.xml.formatter import ET
 
@@ -57,4 +59,11 @@ def flat(source: str) -> str:
     )
     result = '\n'.join(item.lstrip() for item in result.splitlines())
     result = result.replace('>\n<', '><')
+    # avoid multiple white spaces inside long text strings.
+    # normalize white spaces
+    result = re.sub(
+        r'[ ]+',
+        ' ',
+        result,
+    )
     return result

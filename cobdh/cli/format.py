@@ -1,6 +1,5 @@
 import argparse
 import pathlib
-import sys
 
 import cobdh.utils
 import cobdh.xml.inter

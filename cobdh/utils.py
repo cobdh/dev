@@ -1,4 +1,5 @@
 import os
+import pathlib
 import subprocess
 
 SUCCESS = 0
@@ -25,6 +26,16 @@ def file_create(path: str, content='') -> str:
     content = content.rstrip() + '\n'
     with open(path, mode='w', encoding='utf8', newline='\n') as fp:
         fp.write(content)
+
+
+def file_list(path: str) -> list:
+    """\
+    >>> file_list('.')
+    [...]
+    """
+    path = pathlib.Path(path)
+    result = list(path.glob('*'))
+    return result
 
 
 def run(cmd: str, cwd: str = None):

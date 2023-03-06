@@ -1,3 +1,4 @@
+import cobdh.utils
 import cobdh.xml.inter
 import cobdh.xml.split
 
@@ -58,3 +59,17 @@ def test_splitby_biblstruct():
     expected = 3
     result = cobdh.xml.split.split(SAMPLE, node='.//biblStruct')
     assert len(result) == expected
+
+
+def test_cli_splitby(testdir):
+    path = testdir.tmpdir.join('data.xml')
+    cobdh.utils.file_create(path, SAMPLE)
+    current = len(cobdh.utils.file_list(testdir.tmpdir))
+    assert current == 1, current
+    cmd = f'cob_split --src {path} --node .//biblStruct --index 10'
+    completed = cobdh.utils.run(cmd, cwd=testdir.tmpdir)
+    assert '10:' in completed.stdout
+    assert '11:' in completed.stdout
+    assert '12:' in completed.stdout
+    current = len(cobdh.utils.file_list(testdir.tmpdir))
+    assert current == 4, current

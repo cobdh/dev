@@ -120,3 +120,20 @@ def test_format_ns_meta():
     """Do not replace default namespace with ns0."""
     formatted = cobdh.xml.inter.xmlformat(NS_META)
     assert formatted == NS_META, formatted
+
+
+MULTIPLE_NAMESPACES = """\
+<?xml version="1.0" encoding="utf-8"?>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:i18n="http://exist-db.org/xquery/i18n"
+    data-template="app:determine_resource"
+>
+    <i18n:p />
+</html>
+"""
+
+
+def test_multiple_ns():
+    formatted = cobdh.xml.inter.xmlformat(MULTIPLE_NAMESPACES)
+    assert formatted == MULTIPLE_NAMESPACES, formatted

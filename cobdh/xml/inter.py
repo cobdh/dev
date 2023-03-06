@@ -71,7 +71,16 @@ def flat(source: str) -> str:
 
 
 NAMESPACE = re.compile(
-    r'xmlns[ ]{0,3}\=[\"\'](http.+)[\"\']',
+    r"""
+    xmlns
+    (:.{1,20})?             # optional namespace name
+    [ ]{0,3}                # optional white spaces
+    \=
+    [ ]{0,3}                # optional white spaces
+    [\"\']
+    (http.+?)               # +? make parser less greedy
+    [\"\']
+    """,
     flags=re.VERBOSE | re.IGNORECASE,
 )
 
@@ -79,8 +88,12 @@ NAMESPACE = re.compile(
 def register_ns(content: str):
     """Detect namespace to avoid ns0 as default namespace."""
     # TODO: DETERMINE WHY
-    matched = NAMESPACE.search(content)
-    if not matched:
-        # could not find any default namespace
-        return
-    ET.register_namespace('', matched[1])
+    matched = NAMESPACE.findall(content)
+    for item in matched:
+        namespace, url = item[0], item[1]
+        if not namespace:
+            # default namesapce
+            namespace = ''
+        else:
+            namespace = namespace[1:]
+        ET.register_namespace(namespace, url)

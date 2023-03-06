@@ -61,7 +61,7 @@ def cobdh_xml(write, elem, qnames, namespaces, short_empty_elements, **kwargs): 
                     write(f'{before}{value_item}{after}')
                     index += 1
             if text or len(elem) or not short_empty_elements:
-                short = not len(elem)
+                short = not len(elem)  # pylint:disable=C1802
                 short = short and len(text.strip()) < SHORT_ITEM_WIDTH_MAX
                 # do not shorten more than one attribute
                 short = short and numbers <= 1

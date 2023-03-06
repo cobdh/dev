@@ -95,7 +95,7 @@ def cobdh_xml(write, elem, qnames, namespaces, short_empty_elements, **kwargs): 
             else:
                 if len(items) <= 1:  # pylint:disable=R5501
                     # zero or one attribute
-                    write(" />\n")
+                    write("/>\n")
                 else:
                     write(ident + "/>\n")
     if elem.tail:

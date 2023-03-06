@@ -9,7 +9,7 @@ HEADER = '<?xml version="1.0" encoding="utf-8"?>'
 def xmlformat(source: str, header: bool = True) -> str:
     r"""\
     >>> xmlformat('<?xml version="1.0"?><TEI></TEI>')
-    '<?xml version="1.0" encoding="utf-8"?>\n<TEI />\n'
+    '<?xml version="1.0" encoding="utf-8"?>\n<TEI/>\n'
 
     >>> xmlformat('<editor><forename>Carmen Fotescu</forename><surname>Tauwinkl</surname></editor>', header=False)
     '<editor>\n    <forename>...</surname>\n</editor>\n'

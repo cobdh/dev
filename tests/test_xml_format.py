@@ -129,7 +129,7 @@ MULTIPLE_NAMESPACES = """\
     xmlns:i18n="http://exist-db.org/xquery/i18n"
     data-template="app:determine_resource"
 >
-    <i18n:p />
+    <i18n:p/>
 </html>
 """
 

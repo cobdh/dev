@@ -1,3 +1,5 @@
+import os
+
 SUCCESS = 0
 FAILURE = 1
 
@@ -12,6 +14,13 @@ def file_read(path: str) -> str:
 
 
 def file_replace(path: str, content='') -> str:
+    content = content.rstrip() + '\n'
+    with open(path, mode='w', encoding='utf8', newline='\n') as fp:
+        fp.write(content)
+
+
+def file_create(path: str, content='') -> str:
+    assert not os.path.exists(path), f'already exists: {path}'
     content = content.rstrip() + '\n'
     with open(path, mode='w', encoding='utf8', newline='\n') as fp:
         fp.write(content)

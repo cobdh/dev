@@ -137,3 +137,39 @@ MULTIPLE_NAMESPACES = """\
 def test_multiple_ns():
     formatted = cobdh.xml.inter.xmlformat(MULTIPLE_NAMESPACES)
     assert formatted == MULTIPLE_NAMESPACES, formatted
+
+
+XSL = """\
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    version="2.0"
+    xmlns:tei="http://www.tei-c.org/ns/1.0"
+    xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+>
+    <xsl:template match="/">
+        <ul>
+            <xsl:for-each select="//tei:biblFull">
+                <li>
+                    <!--Example: cobdh.org/bibl/1-->
+                    <xsl:element name="a">
+                        <xsl:attribute name="href">
+                            <!--TODO: REPLACE WITH app:abspath-->
+                            <xsl:sequence select="concat('/exist/apps/cobdh-data/', 'bibl/', @xml:id)"/>
+                        </xsl:attribute>
+                        <xsl:value-of select=".//tei:title"/>
+                        ;
+                        <xsl:value-of select=".//tei:date"/>
+                    </xsl:element>
+                </li>
+            </xsl:for-each>
+        </ul>
+    </xsl:template>
+</xsl:stylesheet>
+"""
+
+
+def test_format_xsl():
+    formatted = cobdh.xml.inter.xmlformat(XSL)
+    print(formatted)
+    assert formatted == XSL, formatted

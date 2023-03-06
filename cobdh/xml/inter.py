@@ -26,6 +26,7 @@ def xmlformat(source: str, header: bool = True) -> str:
     register_ns(source)
     raw = flat(source)
     parsed = cobdh.xml.parser.parse(raw)
+    xsl_hack(parsed, source)
     result = to_str(parsed, header)
     return result
 
@@ -97,3 +98,19 @@ def register_ns(content: str):
         else:
             namespace = namespace[1:]
         ET.register_namespace(namespace, url)
+
+
+def xsl_hack(root, source):
+    """\
+    The namespace tei: in the following example is not detected by the
+    xml-parser. But we don't want to lose this namespaces, therefore we use
+    this hack on xsl-documents.
+
+    <xsl:for-each select="//tei:biblFull">      requires tei-namespace
+    """
+    if not '<xsl:stylesheet' in source:
+        return
+    if not ".//tei:" in source and not "./tei:" in source:
+        # hack is not required
+        return
+    root.attrib['xmlns:tei'] = 'http://www.tei-c.org/ns/1.0'

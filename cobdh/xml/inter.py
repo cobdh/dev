@@ -23,6 +23,11 @@ def xmlformat(source: str, header: bool = True) -> str:
     """
     raw = flat(source)
     parsed = cobdh.xml.parser.parse(raw)
+    result = to_str(parsed, header)
+    return result
+
+
+def to_str(parsed, header: bool = False):
     formatted = ET.tostring(
         parsed,
         encoding='unicode',

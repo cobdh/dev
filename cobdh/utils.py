@@ -1,3 +1,7 @@
+SUCCESS = 0
+FAILURE = 1
+
+
 def file_read(path: str) -> str:
     """\
     >>> file_read(__file__)

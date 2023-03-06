@@ -4,9 +4,6 @@ import sys
 import cobdh.utils
 import cobdh.xml.inter
 
-SUCCESS = 0
-FAILURE = 1
-
 
 def main() -> int:
     items = files()
@@ -15,7 +12,7 @@ def main() -> int:
         print(path)
     if not items:
         print('nothing todo')
-        return FAILURE
+        return cobdh.utils.FAILURE
     for path in items:
         content = cobdh.utils.file_read(path)
         formatted = cobdh.xml.inter.xmlformat(content, header=True)
@@ -27,7 +24,7 @@ def main() -> int:
             path,
             content=formatted,
         )
-    return SUCCESS
+    return cobdh.utils.SUCCESS
 
 
 def files():

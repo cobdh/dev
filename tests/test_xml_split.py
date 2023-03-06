@@ -1,6 +1,6 @@
+import cobdh.cli.split
 import cobdh.utils
 import cobdh.xml.inter
-import cobdh.xml.split
 
 SAMPLE = """\
 <?xml version="1.0" encoding="UTF-8"?>
@@ -57,7 +57,7 @@ SAMPLE = """\
 
 def test_splitby_biblstruct():
     expected = 3
-    result = cobdh.xml.split.split(SAMPLE, node='.//biblStruct')
+    result = cobdh.cli.split.split(SAMPLE, node='.//biblStruct')
     assert len(result) == expected
 
 

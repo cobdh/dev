@@ -21,12 +21,13 @@ setuptools.setup(
     ],
     packages=[
         'cobdh',
+        'cobdh.cli',
         'cobdh.xml',
     ],
     entry_points={
         'console_scripts': [
-            'cob_split = cobdh.xml.split:main',
-            'cob_xml = cobdh.xml.cli:main',
+            'cob_split = cobdh.cli.split:main',
+            'cob_xml = cobdh.cli.format:main',
         ],
     },
 )

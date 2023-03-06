@@ -24,16 +24,22 @@ def main():
     root = os.getcwd()
     content = cobdh.utils.file_read(args.src)
     splitted = split(content, node=args.node)
+    failure = cobdh.utils.SUCCESS
     for index, value in enumerate(splitted, start=args.index):
         value = cobdh.xml.inter.to_str(value)
-        formatted = cobdh.xml.inter.xmlformat(value)
+        try:
+            formatted = cobdh.xml.inter.xmlformat(value)
+        except ValueError:
+            print(f'[ERROR]: could not create: {index}')
+            failure += 1
+            continue
         path = os.path.join(root, f'{index}.xml')
         print(f'{index}: {path}')
         cobdh.utils.file_create(
             path,
             content=formatted,
         )
-    return cobdh.utils.SUCCESS
+    return failure
 
 
 def evalcli():

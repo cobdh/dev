@@ -22,7 +22,6 @@ import cobdh.xml.parser
 def main():
     args = evalcli()
     root = os.getcwd()
-    assert os.path.exists(args.src), args.src
     content = cobdh.utils.file_read(args.src)
     splitted = split(content, node=args.node)
     for index, value in enumerate(splitted, start=args.index):

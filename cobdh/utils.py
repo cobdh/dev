@@ -12,6 +12,7 @@ def file_read(path: str) -> str:
     >>> file_read(__file__)
     '...'
     """
+    assert os.path.exists(path), str(path)
     with open(path, mode='r', encoding='utf8', newline=NEWLINE) as fp:
         return fp.read()
 

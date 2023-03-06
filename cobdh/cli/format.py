@@ -16,7 +16,10 @@ def main() -> int:
         return cobdh.utils.FAILURE
     for path in items:
         content = cobdh.utils.file_read(path)
-        formatted = cobdh.xml.inter.xmlformat(content, header=True)
+        formatted = cobdh.xml.inter.xmlformat(
+            content,
+            header=True,
+        )
         if formatted == content:
             print(f'skip: {path}')
             continue

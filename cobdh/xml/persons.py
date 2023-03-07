@@ -72,7 +72,10 @@ def xml(person: tuple) -> str:
     pers = ET.SubElement(root, 'persName')
     surnames = person[1][0]
     for name in surnames:
-        ET.SubElement(pers, 'surname').text = name
+        if name.lower() in 'van der von zu':
+            ET.SubElement(pers, 'nameLink').text = name
+        else:
+            ET.SubElement(pers, 'surname').text = name
     forenames = person[1][1]
     for forename in forenames:
         ET.SubElement(pers, 'forename').text = forename

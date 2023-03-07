@@ -1,3 +1,7 @@
+import os
+
+import pytest
+
 import cobdh.cli.split
 import cobdh.utils
 import cobdh.xml.inter
@@ -53,6 +57,18 @@ SAMPLE = """\
     </listBibl>
 </TEI>
 """
+
+
+@pytest.fixture
+def without_header(testdir):
+    path = testdir.tmpdir.join('data.xml')
+    cobdh.utils.file_create(path, SAMPLE)
+    current = len(cobdh.utils.file_list(testdir.tmpdir))
+    assert current == 1, current
+    cmd = f'cob_split --src {path} --node .//biblStruct --index 10'
+    cobdh.utils.run(cmd, cwd=testdir.tmpdir)
+    os.unlink(path)
+    return testdir
 
 
 def test_splitby_biblstruct():

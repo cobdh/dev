@@ -49,6 +49,10 @@ SAMPLE = """\
                     <forename>Hidemi</forename>
                     <surname>Takahashi</surname>
                 </author>
+                <author>
+                    <forename>Franck</forename>
+                    <surname>Semmel</surname>
+                </author>
             </analytic>
             <series>
                 <title level="s">Eastern Christian Studies 9</title>

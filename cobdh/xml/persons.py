@@ -31,19 +31,28 @@ NS = {
 
 
 def parse(content: str) -> list:
+    # TODO: THERE MUST BE A BETTER WAY
+    use_ns = 'xmlns:tei' in content
+    use_ns |= 'xmlns="http://www.tei-c.org/ns/1.0"' in content
+    _namespace, _author, _surname, _forename = (
+        NS if use_ns else None,
+        './/tei:author' if use_ns else './/author',
+        'tei:surname' if use_ns else 'surname',
+        'tei:forename' if use_ns else 'forename',
+    )
     result = []
     try:
         parsed = cobdh.xml.parser.parse(content)
     except ValueError:
         return None
-    for author in parsed.findall('.//tei:author', namespaces=NS):
+    for author in parsed.findall(_author, namespaces=_namespace):
         surname = tuple(item.text for item in author.findall(
-            'tei:surname',
-            namespaces=NS,
+            _surname,
+            namespaces=_namespace,
         ))
         forenames = tuple(item.text for item in author.findall(
-            'tei:forename',
-            namespaces=NS,
+            _forename,
+            namespaces=_namespace,
         ))
         line = (surname, forenames)
         result.append(line)
@@ -53,14 +62,14 @@ def parse(content: str) -> list:
 def xml(person: tuple) -> str:
     r"""\
     >>> xml(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan',)))).replace('  ', '')
-    '<tei:person xml:id="HovhanessianVahan">\n<tei:persName>\n<tei:surname>Hovhanessian</tei:surname>\n...'
+    '<person xml:id="HovhanessianVahan">\n<persName>\n<surname>Hovhanessian</surname>\n...'
     """
     xmlid = person[0].replace(' ', '')
-    root = ET.Element('tei:person', attrib={'xml:id': xmlid})
-    pers = ET.SubElement(root, 'tei:persName')
+    root = ET.Element('person', attrib={'xml:id': xmlid})
+    pers = ET.SubElement(root, 'persName')
     for name in person[1][0]:
-        ET.SubElement(pers, 'tei:surname').text = name
+        ET.SubElement(pers, 'surname').text = name
     for forename in person[1][1]:
-        ET.SubElement(pers, 'tei:forename').text = forename
+        ET.SubElement(pers, 'forename').text = forename
     result = cobdh.xml.inter.to_str(root)
     return result

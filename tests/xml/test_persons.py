@@ -3,8 +3,8 @@ import collections
 import cobdh.xml.persons
 
 PERSONS = """\
-<tei:TEI
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
+<TEI
+    xmlns="http://www.tei-c.org/ns/1.0"
     xml:lang="en"
 >
     <analytic>
@@ -12,13 +12,13 @@ PERSONS = """\
             An Armenian Invocational Prayer of a Lost Memra of Jacob of Serugh on Good
             Friday and the Destruction of Sheol
         </title>
-        <tei:author>
-            <tei:forename>Franck</tei:forename>
-            <tei:forename>Andy</tei:forename>
-            <tei:surname>Hilkens</tei:surname>
-        </tei:author>
+        <author>
+            <forename>Franck</forename>
+            <forename>Andy</forename>
+            <surname>Hilkens</surname>
+        </author>
     </analytic>
-</tei:TEI>
+</TEI>
 """
 
 

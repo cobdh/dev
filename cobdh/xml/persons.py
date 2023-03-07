@@ -1,6 +1,8 @@
 import collections
+import xml.etree.ElementTree as ET
 
 import cobdh
+import cobdh.xml.inter
 import cobdh.xml.parser
 
 
@@ -45,4 +47,20 @@ def parse(content: str) -> list:
         ))
         line = (surname, forenames)
         result.append(line)
+    return result
+
+
+def xml(person: tuple) -> str:
+    r"""\
+    >>> xml(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan',)))).replace('  ', '')
+    '<tei:person xml:id="HovhanessianVahan">\n<tei:persName>\n<tei:surname>Hovhanessian</tei:surname>\n...'
+    """
+    xmlid = person[0].replace(' ', '')
+    root = ET.Element('tei:person', attrib={'xml:id': xmlid})
+    pers = ET.SubElement(root, 'tei:persName')
+    for name in person[1][0]:
+        ET.SubElement(pers, 'tei:surname').text = name
+    for forename in person[1][1]:
+        ET.SubElement(pers, 'tei:forename').text = forename
+    result = cobdh.xml.inter.to_str(root)
     return result

@@ -84,16 +84,19 @@ def improve_name(person: tuple) -> str:
     """\
     >>> improve_name(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan A. B.', ))))
     <BLANKLINE>
-    before: ('Vahan A. B.',)
-    improved: ('Vahan', 'A.', 'B.')
+    before: ('Hovhanessian',) ('Vahan A. B.',)
+    improved: ('Hovhanessian',) ('Vahan', 'A.', 'B.')
     ('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan', 'A.', 'B.')))
     """
     assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
     forename = []
     for item in person[1][1]:
         forename.extend(item.split())
-    result = (person[0], (person[1][0], tuple(forename)))
+    surname = []
+    for item in person[1][0]:
+        surname.extend(item.split())
+    result = (person[0], (tuple(surname), tuple(forename)))
     if result != person:
-        print(f'\nbefore: {person[1][1]}')
-        print(f'improved: {result[1][1]}')
+        print(f'\nbefore: {person[1][0]} {person[1][1]}')
+        print(f'improved: {result[1][0]} {result[1][1]}')
     return result

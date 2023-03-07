@@ -30,13 +30,17 @@ def file_create(path: str, content='') -> str:
         fp.write(content)
 
 
-def file_list(path: str) -> list:
+def file_list(path, exts: str = 'xml'):
     """\
-    >>> file_list('.')
+    >>> file_list('.', exts='*')
     [...]
     """
     path = pathlib.Path(path)
-    result = list(path.glob('*'))
+    result = [path]
+    if not path.is_file():
+        result = []
+        for ext in exts.split():
+            result += list(path.glob(f'**/*.{ext}'))
     return result
 
 

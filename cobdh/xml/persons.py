@@ -64,6 +64,7 @@ def xml(person: tuple) -> str:
     >>> xml(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan',)))).replace('  ', '')
     '<person xml:id="HovhanessianVahan">\n<persName>\n<surname>Hovhanessian</surname>\n...'
     """
+    assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
     xmlid = person[0].replace(' ', '')
     root = ET.Element('person', attrib={'xml:id': xmlid})
     pers = ET.SubElement(root, 'persName')

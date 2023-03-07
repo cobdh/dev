@@ -14,7 +14,7 @@ options:
 import argparse
 import os
 
-import cobdh.utils
+import cobdh
 import cobdh.xml.inter
 import cobdh.xml.parser
 
@@ -22,9 +22,9 @@ import cobdh.xml.parser
 def main():
     args = evalcli()
     root = os.getcwd()
-    content = cobdh.utils.file_read(args.src)
+    content = cobdh.file_read(args.src)
     splitted = split(content, node=args.node)
-    failure = cobdh.utils.SUCCESS
+    failure = cobdh.SUCCESS
     for index, value in enumerate(splitted, start=args.index):
         value = cobdh.xml.inter.to_str(value)
         try:
@@ -35,7 +35,7 @@ def main():
             continue
         path = os.path.join(root, f'{index}.xml')
         print(f'{index}: {path}')
-        cobdh.utils.file_create(
+        cobdh.file_create(
             path,
             content=formatted,
         )

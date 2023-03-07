@@ -2,8 +2,8 @@ import os
 
 import pytest
 
+import cobdh
 import cobdh.cli.split
-import cobdh.utils
 import cobdh.xml.inter
 
 SAMPLE = """\
@@ -62,8 +62,8 @@ SAMPLE = """\
 @pytest.fixture
 def without_header(testdir):
     path = testdir.tmpdir.join('data.xml')
-    cobdh.utils.file_create(path, SAMPLE)
-    current = len(cobdh.utils.file_list(testdir.tmpdir))
+    cobdh.file_create(path, SAMPLE)
+    current = len(cobdh.file_list(testdir.tmpdir))
     assert current == 1, current
     cmd = f'cob_split --src {path} --node .//biblStruct --index 10'
     cobdh.utils.run(cmd, cwd=testdir.tmpdir)
@@ -79,13 +79,13 @@ def test_splitby_biblstruct():
 
 def test_cli_splitby(testdir):
     path = testdir.tmpdir.join('data.xml')
-    cobdh.utils.file_create(path, SAMPLE)
-    current = len(cobdh.utils.file_list(testdir.tmpdir))
+    cobdh.file_create(path, SAMPLE)
+    current = len(cobdh.file_list(testdir.tmpdir))
     assert current == 1, current
     cmd = f'cob_split --src {path} --node .//biblStruct --index 10'
     completed = cobdh.utils.run(cmd, cwd=testdir.tmpdir)
     assert '10:' in completed.stdout
     assert '11:' in completed.stdout
     assert '12:' in completed.stdout
-    current = len(cobdh.utils.file_list(testdir.tmpdir))
+    current = len(cobdh.file_list(testdir.tmpdir))
     assert current == 4, current

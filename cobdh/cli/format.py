@@ -1,12 +1,12 @@
 import argparse
 
-import cobdh.utils
+import cobdh
 import cobdh.xml.inter
 
 
 def main() -> int:
     path, exts = evalcli()
-    items = cobdh.utils.file_list(
+    items = cobdh.file_list(
         path,
         exts=exts,
     )
@@ -15,9 +15,9 @@ def main() -> int:
         print(path)
     if not items:
         print('nothing todo')
-        return cobdh.utils.FAILURE
+        return cobdh.FAILURE
     for path in items:
-        content = cobdh.utils.file_read(path)
+        content = cobdh.file_read(path)
         formatted = cobdh.xml.inter.xmlformat(
             content,
             header=True,
@@ -26,11 +26,11 @@ def main() -> int:
             print(f'skip: {path}')
             continue
         print(f'format: {path}')
-        cobdh.utils.file_replace(
+        cobdh.file_replace(
             path,
             content=formatted,
         )
-    return cobdh.utils.SUCCESS
+    return cobdh.SUCCESS
 
 
 def evalcli():

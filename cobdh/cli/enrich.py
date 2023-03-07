@@ -1,13 +1,13 @@
 import argparse
 
-import cobdh.utils
+import cobdh
 import cobdh.xml.enrich
 import cobdh.xml.inter
 
 
 def main() -> int:
     path = evalcli()
-    items = cobdh.utils.file_list(
+    items = cobdh.file_list(
         path,
         exts='xml',
     )
@@ -16,9 +16,9 @@ def main() -> int:
         print(path)
     if not items:
         print('nothing todo')
-        return cobdh.utils.FAILURE
+        return cobdh.FAILURE
     for path in items:
-        content = cobdh.utils.file_read(path)
+        content = cobdh.file_read(path)
         if cobdh.xml.enrich.require(content):
             print(f'enrich: {path}')
             content = cobdh.xml.enrich.enrich(content)
@@ -31,11 +31,11 @@ def main() -> int:
             continue
         print(f'format: {path}')
         print()
-        cobdh.utils.file_replace(
+        cobdh.file_replace(
             path,
             content=formatted,
         )
-    return cobdh.utils.SUCCESS
+    return cobdh.SUCCESS
 
 
 def evalcli():

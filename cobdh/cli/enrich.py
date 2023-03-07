@@ -1,5 +1,4 @@
 import argparse
-import pathlib
 
 import cobdh.utils
 import cobdh.xml.enrich
@@ -8,7 +7,10 @@ import cobdh.xml.inter
 
 def main() -> int:
     path = evalcli()
-    items = files(path)
+    items = cobdh.utils.file_list(
+        path,
+        exts='xml',
+    )
     print('detected:')
     for path in items:
         print(path)
@@ -34,14 +36,6 @@ def main() -> int:
             content=formatted,
         )
     return cobdh.utils.SUCCESS
-
-
-def files(path):
-    path = pathlib.Path(path)
-    result = [path]
-    if not path.is_file():
-        result = list(path.glob(f'**/*.xml'))
-    return result
 
 
 def evalcli():

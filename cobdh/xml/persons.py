@@ -65,6 +65,7 @@ def xml(person: tuple) -> str:
     '<person xml:id="HovhanessianVahan">\n<persName>\n<surname>Hovhanessian</surname>\n...'
     """
     assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
+    person = improve_name(person)
     xmlid = person[0].replace(' ', '')
     root = ET.Element('person', attrib={'xml:id': xmlid})
     pers = ET.SubElement(root, 'persName')
@@ -75,4 +76,23 @@ def xml(person: tuple) -> str:
     for forename in forenames:
         ET.SubElement(pers, 'forename').text = forename
     result = cobdh.xml.inter.to_str(root)
+    return result
+
+
+def improve_name(person: tuple) -> str:
+    """
+    >>> improve_name(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan A. B.', ))))
+    <BLANKLINE>
+    before: ('Vahan A. B.',)
+    improved: ('Vahan', 'A.', 'B.')
+    ('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan', 'A.', 'B.')))
+    """
+    assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
+    forename = []
+    for item in person[1][1]:
+        forename.extend(item.split())
+    result = (person[0], (person[1][0], tuple(forename)))
+    if result != person:
+        print(f'\nbefore: {person[1][1]}')
+        print(f'improved: {result[1][1]}')
     return result

@@ -67,9 +67,11 @@ def xml(person: tuple) -> str:
     xmlid = person[0].replace(' ', '')
     root = ET.Element('person', attrib={'xml:id': xmlid})
     pers = ET.SubElement(root, 'persName')
-    for name in person[1][0]:
+    surnames = person[1][0]
+    for name in surnames:
         ET.SubElement(pers, 'surname').text = name
-    for forename in person[1][1]:
+    forenames = person[1][1]
+    for forename in forenames:
         ET.SubElement(pers, 'forename').text = forename
     result = cobdh.xml.inter.to_str(root)
     return result

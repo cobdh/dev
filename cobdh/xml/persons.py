@@ -2,6 +2,7 @@ import collections
 import xml.etree.ElementTree as ET
 
 import cobdh
+import cobdh.xml
 import cobdh.xml.inter
 import cobdh.xml.parser
 
@@ -66,7 +67,7 @@ def xml(person: tuple) -> str:
     """
     assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
     person = improve_name(person)
-    xmlid = person[0].replace(' ', '')
+    xmlid = cobdh.xml.clean_id(person[0])
     root = ET.Element('person', attrib={'xml:id': xmlid})
     pers = ET.SubElement(root, 'persName')
     surnames = person[1][0]
@@ -80,7 +81,7 @@ def xml(person: tuple) -> str:
 
 
 def improve_name(person: tuple) -> str:
-    """
+    """\
     >>> improve_name(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan A. B.', ))))
     <BLANKLINE>
     before: ('Vahan A. B.',)

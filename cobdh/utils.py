@@ -40,7 +40,7 @@ def file_list(path: str) -> list:
     return result
 
 
-def run(cmd: str, cwd: str = None):
+def run(cmd: str, cwd: str = None, expect=True):
     """\
     >>> run('ls')
     CompletedProcess(args=['ls'], returncode=0, stdout='...', stderr='')
@@ -55,4 +55,8 @@ def run(cmd: str, cwd: str = None):
         encoding='utf8',
         universal_newlines=True,
     )
+    if expect:
+        assert completed.returncode == SUCCESS
+    elif expect is False:  # pylint:disable=compare-to-zero
+        assert completed.returncode >= FAILURE
     return completed

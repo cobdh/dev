@@ -144,7 +144,7 @@ def run(cmd: str, cwd: str = None, expect=True):
         universal_newlines=True,
     )
     if expect:
-        assert completed.returncode == SUCCESS
+        assert completed.returncode == SUCCESS, str(completed)
     elif expect is False:  # pylint:disable=compare-to-zero
-        assert completed.returncode >= FAILURE
+        assert completed.returncode >= FAILURE, str(completed)
     return completed

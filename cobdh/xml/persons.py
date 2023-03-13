@@ -78,6 +78,9 @@ def parse_person(author, use_ns: bool = False) -> tuple:
         namespaces=_namespace,
     ))
     result = (surname, forenames)
+    if not surname and not forenames:
+        # <author>Blain, Virginia</author>
+        result = ((author.text), ())
     return result
 
 

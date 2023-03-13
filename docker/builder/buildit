@@ -5,7 +5,14 @@ cp -r /var/src/* /var/workdir
 
 sed -i "s/XXX/${VERSION}/" expath-pkg.xml >> expath-pkg.xml
 
-ant xar
+if [ $MINIMAL -eq 1 ]
+then
+    # test data build
+    ant mini
+else
+    # normal build
+    ant xar
+fi
 
 if [ $? -ne 0 ]
 then

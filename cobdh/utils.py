@@ -32,7 +32,11 @@ def file_create(path: str, content='') -> str:
         fp.write(content)
 
 
-def file_list(path, exts: str = 'xml'):
+def file_list(
+    path,
+    exts: str = 'xml',
+    sort: bool = True,
+):
     """\
     >>> file_list('.', exts='*')
     [...]
@@ -43,6 +47,8 @@ def file_list(path, exts: str = 'xml'):
         result = []
         for ext in exts.split():
             result += list(path.glob(f'**/*.{ext}'))
+    if sort:
+        result = files_sort(result)
     return result
 
 
@@ -82,7 +88,7 @@ def files_sort(files: list) -> list:
     >>> files_sort(('/c/a', '/c/200.txt', '/c/2.txt', '/c/3', '/c/0.bmp'))
     ['/c/0.bmp', '/c/2.txt', '/c/3', '/c/200.txt', '/c/a']
     """
-    files = [forward_slash(item) for item in files]
+    files = [forward_slash(str(item)) for item in files]
 
     def number_filename(item):
         # sort file names if they are numbers: 0,1,2,3,4,5,6,7,8,9,10

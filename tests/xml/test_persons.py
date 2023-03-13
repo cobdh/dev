@@ -1,5 +1,6 @@
 import collections
 
+import cobdh.xml.enrich
 import cobdh.xml.persons
 
 PERSONS = """\
@@ -42,3 +43,13 @@ def test_persons(samples):
     src = samples.tmpdir
     persons = cobdh.xml.persons.create(src)
     assert persons == EXPECTED
+
+
+def test_inject_author_id():
+    expected = 'xml:id="HilkensFranckAndy"'
+    assert expected not in PERSONS
+    injected = cobdh.xml.enrich.inject_author_id(PERSONS)
+    assert expected in injected
+    # ensure that multiple runs does not change the result
+    again = cobdh.xml.enrich.inject_author_id(injected)
+    assert again == injected

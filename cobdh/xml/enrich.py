@@ -1,9 +1,15 @@
+import cobdh
 import cobdh.xml.inter
+import cobdh.xml.persons
 
 
 def enrich(content: str) -> str:
-    result = inject_header(content)
-    return result
+    if require(content):
+        content = inject_header(content)
+    # do not expand tei: to full namespace
+    cobdh.xml.inter.register_ns(content)
+    content = inject_author_id(content)
+    return content
 
 
 def inject_header(content: str) -> str:
@@ -13,6 +19,30 @@ def inject_header(content: str) -> str:
         '',
     )
     result = TEMPLATE % content
+    return result
+
+
+def inject_author_id(content: str) -> str:
+    parsed = cobdh.xml_parse(content)
+    namespaces = cobdh.xml.persons.NS
+    for author in parsed.findall('.//tei:author', namespaces=namespaces):
+        # TODO: THERE MUST BE A BETTER WAY
+        if author.attrib.get('{http://www.w3.org/XML/1998/namespace}id', False):
+            # xml:id already exists
+            continue
+        author_parsed = cobdh.xml.persons.parse_person(
+            author,
+            use_ns=True,
+        )
+        hashed = cobdh.xml.persons.person_hash(author_parsed)
+        if not hashed:
+            print(f'[ERROR]: could not hash: {author_parsed}')
+            continue
+        author.attrib['xml:id'] = hashed
+    result = cobdh.xml_tostr(
+        parsed,
+        header=False,
+    )
     return result
 
 

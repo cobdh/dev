@@ -55,13 +55,15 @@ def parse(content: str) -> list:
     except ValueError:
         return None
     for author in parsed.findall(_author, namespaces=_namespace):
-        line = parse_person(author)
+        line = parse_person(
+            author,
+            use_ns=use_ns,
+        )
         result.append(line)
     return result
 
 
-def parse_person(author) -> tuple:
-    use_ns = author.tag and '{' in author.tag
+def parse_person(author, use_ns: bool = False) -> tuple:
     _namespace, _surname, _forename = (
         NS if use_ns else None,
         'tei:surname' if use_ns else 'surname',

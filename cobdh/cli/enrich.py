@@ -18,15 +18,15 @@ def main() -> int:
         print('nothing todo')
         return cobdh.FAILURE
     for path in items:
-        content = cobdh.file_read(path)
-        if cobdh.xml.enrich.require(content):
+        before = cobdh.file_read(path)
+        content = cobdh.xml.enrich.enrich(before)
+        if before != content:
             print(f'enrich: {path}')
-            content = cobdh.xml.enrich.enrich(content)
         formatted = cobdh.xml.inter.xmlformat(
             content,
             header=True,
         )
-        if formatted == content:
+        if formatted == before:
             print(f'skip: {path}')
             continue
         print(f'format: {path}')

@@ -20,10 +20,20 @@ def create(path: str) -> dict:
             print(f'[ERROR]: could not find author: {src}')
             continue
         for person in parsed:
-            hashed = ' '.join(person[0]) + ' '
-            hashed += ' '.join(person[1])
+            hashed = person_hash(person)
             result[hashed] = person
     return result
+
+
+def person_hash(person):
+    """\
+    >>> person_hash((('Hovhanessian',), ('Vahan A. B.', )))
+    'HovhanessianVahanAB'
+    """
+    hashed = ' '.join(person[0]) + ' '
+    hashed += ' '.join(person[1])
+    hashed: str = cobdh.xml.clean_id(hashed)
+    return hashed
 
 
 NS = {
@@ -83,7 +93,7 @@ def xml(person: tuple) -> str:
     return result
 
 
-def improve_name(person: tuple) -> str:
+def improve_name(person: tuple, log: bool = True) -> str:
     """\
     >>> improve_name(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan A. B.', ))))
     <BLANKLINE>
@@ -99,7 +109,7 @@ def improve_name(person: tuple) -> str:
     for item in person[1][0]:
         surname.extend(item.split())
     result = (person[0], (tuple(surname), tuple(forename)))
-    if result != person:
+    if log and result != person:
         print(f'\nbefore: {person[1][0]} {person[1][1]}')
         print(f'improved: {result[1][0]} {result[1][1]}')
     return result

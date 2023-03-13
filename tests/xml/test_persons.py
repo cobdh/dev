@@ -31,10 +31,10 @@ def test_parse():
 
 
 EXPECTED = collections.OrderedDict([
-    ('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan',))),
-    ('Muyldermans Joseph', (('Muyldermans',), ('Joseph',))),
-    ('Takahashi Hidemi', (('Takahashi',), ('Hidemi',))),
-    ('Semmel Franck', (('Semmel',), ('Franck',)))
+    ('HovhanessianVahan', (('Hovhanessian',), ('Vahan',))),
+    ('MuyldermansJoseph', (('Muyldermans',), ('Joseph',))),
+    ('TakahashiHidemi', (('Takahashi',), ('Hidemi',))),
+    ('SemmelFranck', (('Semmel',), ('Franck',)))
 ])
 
 

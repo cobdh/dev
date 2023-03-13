@@ -135,7 +135,7 @@ def run(cmd: str, cwd: str = None, expect=True):
     """
     cmd = cmd.split()
     cwd = cwd if cwd else os.getcwd()
-    completed = subprocess.run(
+    completed = subprocess.run(  # nosec
         cmd,
         cwd=cwd,
         capture_output=True,

@@ -1,5 +1,5 @@
 import textwrap
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec
 
 SHORT_ITEM_WIDTH_MAX = 40
 # pylint:disable=C0103

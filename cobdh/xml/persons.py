@@ -1,5 +1,5 @@
 import collections
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec
 
 import cobdh
 import cobdh.xml

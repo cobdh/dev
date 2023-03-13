@@ -2,6 +2,11 @@ import cobdh.xml.inter
 
 
 def enrich(content: str) -> str:
+    result = inject_header(content)
+    return result
+
+
+def inject_header(content: str) -> str:
     # remove optional header of of content
     content = content.replace(
         cobdh.xml.inter.HEADER,

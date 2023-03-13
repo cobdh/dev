@@ -45,11 +45,9 @@ def parse(content: str) -> list:
     # TODO: THERE MUST BE A BETTER WAY
     use_ns = 'xmlns:tei' in content
     use_ns |= 'xmlns="http://www.tei-c.org/ns/1.0"' in content
-    _namespace, _author, _surname, _forename = (
+    _namespace, _author = (
         NS if use_ns else None,
         './/tei:author' if use_ns else './/author',
-        'tei:surname' if use_ns else 'surname',
-        'tei:forename' if use_ns else 'forename',
     )
     result = []
     try:
@@ -57,16 +55,27 @@ def parse(content: str) -> list:
     except ValueError:
         return None
     for author in parsed.findall(_author, namespaces=_namespace):
-        surname = tuple(item.text for item in author.findall(
-            _surname,
-            namespaces=_namespace,
-        ))
-        forenames = tuple(item.text for item in author.findall(
-            _forename,
-            namespaces=_namespace,
-        ))
-        line = (surname, forenames)
+        line = parse_person(author)
         result.append(line)
+    return result
+
+
+def parse_person(author) -> tuple:
+    use_ns = author.tag and '{' in author.tag
+    _namespace, _surname, _forename = (
+        NS if use_ns else None,
+        'tei:surname' if use_ns else 'surname',
+        'tei:forename' if use_ns else 'forename',
+    )
+    surname = tuple(item.text for item in author.findall(
+        _surname,
+        namespaces=_namespace,
+    ))
+    forenames = tuple(item.text for item in author.findall(
+        _forename,
+        namespaces=_namespace,
+    ))
+    result = (surname, forenames)
     return result
 
 

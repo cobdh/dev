@@ -38,12 +38,26 @@ def inject_author_id(content: str) -> str:
         if not hashed:
             print(f'[ERROR]: could not hash: {author_parsed}')
             continue
-        author.attrib['xml:id'] = hashed
+        author = author_add_id(
+            author,
+            hashed=hashed,
+        )
     result = cobdh.xml_tostr(
         parsed,
         header=False,
     )
+    result = cobdh.xml_format(
+        result,
+        header=False,
+    )
     return result
+
+
+def author_add_id(author, hashed: str):
+    ref = f'https://cobdh.org/persons/{hashed}'
+    author.attrib['xml:id'] = hashed
+    author.attrib['ref'] = ref
+    return author
 
 
 TEMPLATE = """\

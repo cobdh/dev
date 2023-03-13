@@ -25,7 +25,10 @@ def inject_header(content: str) -> str:
 def inject_author_id(content: str) -> str:
     parsed = cobdh.xml_parse(content)
     namespaces = cobdh.xml.persons.NS
-    for author in parsed.findall('.//tei:author', namespaces=namespaces):
+    # TODO: IMPROVE IF XPATH CAN HANDLE MULTIPLE ONE
+    todos = (parsed.findall('.//tei:author', namespaces=namespaces) +
+             parsed.findall('.//tei:editor', namespaces=namespaces))
+    for author in todos:
         # TODO: THERE MUST BE A BETTER WAY
         if author.attrib.get('{http://www.w3.org/XML/1998/namespace}id', False):
             # xml:id already exists

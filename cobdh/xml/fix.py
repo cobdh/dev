@@ -4,6 +4,8 @@ import random
 import cobdh
 import cobdh.xml.inter
 
+XML_ID = '{http://www.w3.org/XML/1998/namespace}id'
+
 
 def xml_id(src: str, dst: str) -> dict:
     done = set()
@@ -18,14 +20,14 @@ def xml_id(src: str, dst: str) -> dict:
             continue
         detected, root = parsed
         # TODO: XML:ID
-        xmlid = detected.attrib['{http://www.w3.org/XML/1998/namespace}id']
+        xmlid = detected.attrib[XML_ID]
         if xmlid not in done:
             done.add(xmlid)
             continue
         print(f'duplicated xmlid: {xmlid}')
         newid = nextid(xmlid, done=done)
         print(f'use new id: {newid}')
-        detected.attrib['{http://www.w3.org/XML/1998/namespace}id'] = newid
+        detected.attrib[XML_ID] = newid
         fname = cobdh.file_name(path, ext=True)
         outpath = cobdh.forward_slash(os.path.join(dst, fname))
         print(f'replace: {outpath}\n')

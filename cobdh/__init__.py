@@ -1,3 +1,5 @@
+import os
+
 from cobdh.string import alphabetically
 from cobdh.string import replace
 from cobdh.utils import FAILURE
@@ -15,3 +17,4 @@ from cobdh.xml.inter import to_str as xml_tostr
 from cobdh.xml.parser import parse as xml_parse
 
 __version__ = '0.1.0'
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

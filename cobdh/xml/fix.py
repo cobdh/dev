@@ -2,6 +2,7 @@ import os
 import random
 
 import cobdh
+import cobdh.xml
 import cobdh.xml.inter
 
 XML_ID = '{http://www.w3.org/XML/1998/namespace}id'
@@ -19,12 +20,16 @@ def xml_id(src: str, dst: str) -> dict:
             print(f'[ERROR]: could not parse: {path}')
             continue
         detected, root = parsed
+        cleaned = cleanup_id(detected)
         # TODO: XML:ID
         xmlid = detected.attrib[XML_ID]
         if xmlid not in done:
             done.add(xmlid)
-            continue
-        print(f'duplicated xmlid: {xmlid}')
+            if not cleaned:
+                continue
+            print(f'clean id: {xmlid}')
+        else:
+            print(f'duplicated xmlid: {xmlid}')
         newid = nextid(xmlid, done=done)
         print(f'use new id: {newid}')
         detected.attrib[XML_ID] = newid
@@ -36,6 +41,16 @@ def xml_id(src: str, dst: str) -> dict:
             header=True,
         )
         cobdh.file_replace(outpath, formatted)
+
+
+def cleanup_id(node):
+    """Remove danger elements `-:;` out of element identifier."""
+    xmlid = node.attrib[XML_ID]
+    cleaned = cobdh.xml.clean_id(xmlid)
+    if xmlid == cleaned:
+        return None
+    node.attrib[XML_ID] = cleaned
+    return node
 
 
 def nextid(current: str, done: set):

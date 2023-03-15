@@ -22,7 +22,7 @@ setuptools.setup(
     packages=[
         'cobdh',
         'cobdh.cli',
-        'cobdh.xml',
+        'cobdh.xmlx',
     ],
     entry_points={
         'console_scripts': [

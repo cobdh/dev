@@ -1,7 +1,7 @@
 import os
 
-from cobdh.string import alphabetically
-from cobdh.string import replace
+from cobdh.str import alphabetically
+from cobdh.str import replace
 from cobdh.utils import FAILURE
 from cobdh.utils import NEWLINE
 from cobdh.utils import SUCCESS

@@ -1,4 +1,4 @@
-import cobdh.string
+import cobdh.str
 
 
 def clean_id(xml: str):
@@ -8,5 +8,5 @@ def clean_id(xml: str):
     """
     for char in '.-:,; ':
         xml = xml.replace(char, '')
-    xml = cobdh.string.replace(xml)
+    xml = cobdh.str.replace(xml)
     return xml

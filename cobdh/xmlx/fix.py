@@ -13,34 +13,48 @@ def xml_ids(src: str, dst: str) -> dict:
     sources = cobdh.file_list(src)
     for path in sources:
         content = cobdh.file_read(path)
-        # do not expand namespaces
-        cobdh.xmlx.inter.register_ns(content)  # TODO: REMOVE THIS
-        parsed = parse(content)
-        if parsed is None:
+        try:
+            improved = improve_xmlid_person(content, done)
+        except ValueError:
             print(f'[ERROR]: could not parse: {path}')
             continue
-        detected, root = parsed
-        cleaned = cleanup_id(detected)
-        # TODO: XML:ID
-        xmlid = detected.attrib[XML_ID]
-        if xmlid not in done:
-            done.add(xmlid)
-            if not cleaned:
-                continue
-            print(f'clean id: {xmlid}')
-        else:
-            print(f'duplicated xmlid: {xmlid}')
-        newid = nextid(xmlid, done=done)
-        print(f'use new id: {newid}')
-        detected.attrib[XML_ID] = newid
+        if not improved:
+            continue
         fname = cobdh.file_name(path, ext=True)
         outpath = cobdh.forward_slash(os.path.join(dst, fname))
         print(f'replace: {outpath}\n')
-        formatted = cobdh.xml_tostr(
-            root,
-            header=True,
-        )
-        cobdh.file_replace(outpath, formatted)
+        cobdh.file_replace(outpath, improved)
+
+
+def improve_xmlid_person(content: str, done: str) -> str:
+    # do not expand namespaces
+    cobdh.xmlx.inter.register_ns(content)  # TODO: REMOVE THIS
+    parsed = parse(content)
+    if parsed is None:
+        raise ValueError('Could not parse')
+    detected, root = parsed
+    cleaned = cleanup_id(detected)
+    # TODO: XML:ID
+    xmlid = detected.attrib[XML_ID]
+    if xmlid not in done:
+        done.add(xmlid)
+        if not cleaned:
+            return None
+        print(f'clean id: {xmlid}')
+    else:
+        print(f'duplicated xmlid: {xmlid}')
+    newid = nextid(xmlid, done=done)
+    print(f'use new id: {newid}')
+    detected.attrib[XML_ID] = newid
+    result = cobdh.xml_tostr(
+        root,
+        header=True,
+    )
+    result = cobdh.xml_format(
+        result,
+        header=True,
+    )
+    return result
 
 
 def cleanup_id(node):

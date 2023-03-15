@@ -37,7 +37,7 @@ def xml_id(src: str, dst: str) -> dict:
 
 
 def nextid(current: str, done: set):
-    new = current + str(random.randint(1, 999))  # nosec
+    new = current + '_' + str(random.randint(1, 99))  # nosec
     if new in done:
         return nextid(new, done)
     return new

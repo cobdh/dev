@@ -63,7 +63,8 @@ def parse(content: str) -> list:
             use_ns=use_ns,
         )
         if not line:
-            print(f'could not find names: {person.attrib}')
+            raw = [item.text for item in person]
+            print(f'could not find names: {raw} {person.attrib}')
             continue
         result.append(line)
     return result
@@ -85,7 +86,14 @@ def parse_person(author, use_ns: bool = False) -> tuple:
     ))
     result = (surname, forenames)
     if not surname and not forenames:
-        if not author.text:
+        # TODO: HACKY
+        if name := tuple(item.text for item in author):
+            # <editor>
+            #     <name>Idem</name>
+            # </editor>
+            result = (name, ())
+            return result
+        if not author.text or not author.text.strip():
             return None
         # <author>Blain, Virginia</author>
         result = ((author.text), ())

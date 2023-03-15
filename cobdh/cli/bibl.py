@@ -2,14 +2,14 @@ import argparse
 import os
 
 import cobdh
-import cobdh.xml.fix
+import cobdh.xmlx.fix
 
 
 def main():
     args = evalcli()
     src = args.src
     assert os.path.exists(src), src
-    cobdh.xml.fix.xml_id(
+    cobdh.xmlx.fix.xml_id(
         src=src,
         dst=src,
     )

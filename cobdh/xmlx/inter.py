@@ -1,7 +1,7 @@
 import re
 
-import cobdh.xml.parser
-from cobdh.xml.formatter import ET
+import cobdh.xmlx.parser
+from cobdh.xmlx.formatter import ET
 
 HEADER = '<?xml version="1.0" encoding="utf-8"?>'
 
@@ -25,7 +25,7 @@ def xmlformat(source: str, header: bool = True) -> str:
     """
     register_ns(source)
     raw = flat(source)
-    parsed = cobdh.xml.parser.parse(raw)
+    parsed = cobdh.xmlx.parser.parse(raw)
     xsl_hack(parsed, source)
     result = to_str(parsed, header)
     return result
@@ -49,7 +49,7 @@ def flat(source: str) -> str:
     try:
         parsed = ET.fromstring(
             source,
-            parser=cobdh.xml.parser.parser_create(),
+            parser=cobdh.xmlx.parser.parser_create(),
         )
     except ET.ParseError as error:
         raise ValueError(f'invalid xml: {error}\n "{source}"') from error

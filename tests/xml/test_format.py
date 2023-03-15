@@ -1,5 +1,5 @@
 import cobdh
-import cobdh.xml.inter
+import cobdh.xmlx.inter
 
 SAMPLE = """\
 <?xml version="1.0" encoding="utf-8"?>
@@ -29,16 +29,16 @@ SAMPLE = """\
 
 
 def test_xmlformat():
-    formatted = cobdh.xml.inter.xmlformat(SAMPLE)
+    formatted = cobdh.xmlx.inter.xmlformat(SAMPLE)
     assert formatted == SAMPLE, formatted
-    formatted = cobdh.xml.inter.xmlformat(formatted)
+    formatted = cobdh.xmlx.inter.xmlformat(formatted)
 
 
 def test_multiple_xmlformat():
     formatted = SAMPLE
     # format ten time
     for _ in range(10):
-        formatted = cobdh.xml.inter.xmlformat(formatted)
+        formatted = cobdh.xmlx.inter.xmlformat(formatted)
     assert formatted == SAMPLE
 
 
@@ -64,7 +64,7 @@ NAMESPACE = """\
 
 
 def test_namespace():
-    formatted = cobdh.xml.inter.xmlformat(NAMESPACE)
+    formatted = cobdh.xmlx.inter.xmlformat(NAMESPACE)
     assert formatted == NAMESPACE, formatted
 
 
@@ -78,7 +78,7 @@ SHORT = """\
 
 
 def test_single_short():
-    formatted = cobdh.xml.inter.xmlformat(SHORT)
+    formatted = cobdh.xmlx.inter.xmlformat(SHORT)
     assert formatted == SHORT, formatted
 
 
@@ -118,7 +118,7 @@ NS_META = """\
 
 def test_format_ns_meta():
     """Do not replace default namespace with ns0."""
-    formatted = cobdh.xml.inter.xmlformat(NS_META)
+    formatted = cobdh.xmlx.inter.xmlformat(NS_META)
     assert formatted == NS_META, formatted
 
 
@@ -135,7 +135,7 @@ MULTIPLE_NAMESPACES = """\
 
 
 def test_multiple_ns():
-    formatted = cobdh.xml.inter.xmlformat(MULTIPLE_NAMESPACES)
+    formatted = cobdh.xmlx.inter.xmlformat(MULTIPLE_NAMESPACES)
     assert formatted == MULTIPLE_NAMESPACES, formatted
 
 
@@ -170,6 +170,6 @@ XSL = """\
 
 
 def test_format_xsl():
-    formatted = cobdh.xml.inter.xmlformat(XSL)
+    formatted = cobdh.xmlx.inter.xmlformat(XSL)
     print(formatted)
     assert formatted == XSL, formatted

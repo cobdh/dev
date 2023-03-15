@@ -15,8 +15,8 @@ import argparse
 import os
 
 import cobdh
-import cobdh.xml.inter
-import cobdh.xml.parser
+import cobdh.xmlx.inter
+import cobdh.xmlx.parser
 
 
 def main():
@@ -26,9 +26,9 @@ def main():
     splitted = split(content, node=args.node)
     failure = cobdh.SUCCESS
     for index, value in enumerate(splitted, start=args.index):
-        value = cobdh.xml.inter.to_str(value)
+        value = cobdh.xmlx.inter.to_str(value)
         try:
-            formatted = cobdh.xml.inter.xmlformat(value)
+            formatted = cobdh.xmlx.inter.xmlformat(value)
         except ValueError:
             print(f'[ERROR]: could not create: {index}')
             failure += 1
@@ -55,7 +55,7 @@ def evalcli():
 
 
 def split(content: str, node: str) -> list:
-    parsed = cobdh.xml.parser.parse(content)
+    parsed = cobdh.xmlx.parser.parse(content)
     result = []
     for item in parsed.findall(node):
         result.append(item)

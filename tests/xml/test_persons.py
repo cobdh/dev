@@ -1,7 +1,7 @@
 import collections
 
-import cobdh.xml.enrich
-import cobdh.xml.persons
+import cobdh.xmlx.enrich
+import cobdh.xmlx.persons
 
 PERSONS = """\
 <TEI
@@ -27,7 +27,7 @@ def test_parse():
     expected = [
         (('Hilkens',), ('Franck', 'Andy')),
     ]
-    parsed = cobdh.xml.persons.parse(PERSONS)
+    parsed = cobdh.xmlx.persons.parse(PERSONS)
     assert parsed == expected
 
 
@@ -41,15 +41,15 @@ EXPECTED = collections.OrderedDict([
 
 def test_persons(samples):
     src = samples.tmpdir
-    persons = cobdh.xml.persons.create(src)
+    persons = cobdh.xmlx.persons.create(src)
     assert persons == EXPECTED
 
 
 def test_inject_author_id():
     expected = 'xml:id="HilkensFranckAndy"'
     assert expected not in PERSONS
-    injected = cobdh.xml.enrich.inject_author_id(PERSONS)
+    injected = cobdh.xmlx.enrich.inject_author_id(PERSONS)
     assert expected in injected
     # ensure that multiple runs does not change the result
-    again = cobdh.xml.enrich.inject_author_id(injected)
+    again = cobdh.xmlx.enrich.inject_author_id(injected)
     assert again == injected

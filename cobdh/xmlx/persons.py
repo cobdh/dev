@@ -2,9 +2,9 @@ import collections
 import xml.etree.ElementTree as ET  # nosec
 
 import cobdh
-import cobdh.xml
-import cobdh.xml.inter
-import cobdh.xml.parser
+import cobdh.xmlx
+import cobdh.xmlx.inter
+import cobdh.xmlx.parser
 
 
 def create(path: str) -> dict:
@@ -32,7 +32,7 @@ def person_hash(person):
     """
     hashed = ' '.join(person[0]) + ' '
     hashed += ' '.join(person[1])
-    hashed: str = cobdh.xml.clean_id(hashed)
+    hashed: str = cobdh.xmlx.clean_id(hashed)
     return hashed
 
 
@@ -52,7 +52,7 @@ def parse(content: str) -> list:
     )
     result = []
     try:
-        parsed = cobdh.xml.parser.parse(content)
+        parsed = cobdh.xmlx.parser.parse(content)
     except ValueError:
         return None
     todo = (parsed.findall(_author, namespaces=_namespace) +
@@ -99,7 +99,7 @@ def xml(person: tuple) -> str:
     """
     assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
     person = improve_name(person)
-    xmlid = cobdh.xml.clean_id(person[0])
+    xmlid = cobdh.xmlx.clean_id(person[0])
     root = ET.Element('person', attrib={'xml:id': xmlid})
     pers = ET.SubElement(root, 'persName')
     surnames = person[1][0]
@@ -111,7 +111,7 @@ def xml(person: tuple) -> str:
     forenames = person[1][1]
     for forename in forenames:
         ET.SubElement(pers, 'forename').text = forename
-    result = cobdh.xml.inter.to_str(root)
+    result = cobdh.xmlx.inter.to_str(root)
     return result
 
 

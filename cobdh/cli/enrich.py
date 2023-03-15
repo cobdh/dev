@@ -1,8 +1,8 @@
 import argparse
 
 import cobdh
-import cobdh.xml.enrich
-import cobdh.xml.inter
+import cobdh.xmlx.enrich
+import cobdh.xmlx.inter
 
 
 def main() -> int:
@@ -19,10 +19,10 @@ def main() -> int:
         return cobdh.FAILURE
     for path in items:
         before = cobdh.file_read(path)
-        content = cobdh.xml.enrich.enrich(before)
+        content = cobdh.xmlx.enrich.enrich(before)
         if before != content:
             print(f'enrich: {path}')
-        formatted = cobdh.xml.inter.xmlformat(
+        formatted = cobdh.xmlx.inter.xmlformat(
             content,
             header=True,
         )

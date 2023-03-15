@@ -4,7 +4,7 @@ import pytest
 
 import cobdh
 import cobdh.cli.split
-import cobdh.xml.inter
+import cobdh.xmlx.inter
 
 SAMPLE = """\
 <?xml version="1.0" encoding="UTF-8"?>

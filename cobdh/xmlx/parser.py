@@ -1,4 +1,4 @@
-from cobdh.xml.formatter import ET
+from cobdh.xmlx.formatter import ET
 
 
 def parse(raw: str):

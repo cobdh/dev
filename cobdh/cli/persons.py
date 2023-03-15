@@ -2,9 +2,9 @@ import argparse
 import os
 
 import cobdh
-import cobdh.xml.inter
-import cobdh.xml.parser
-import cobdh.xml.persons
+import cobdh.xmlx.inter
+import cobdh.xmlx.parser
+import cobdh.xmlx.persons
 
 
 def main():
@@ -12,12 +12,12 @@ def main():
     dst = os.getcwd()
     src = args.src
     assert os.path.exists(src), src
-    collection = list(cobdh.xml.persons.create(src).items())
+    collection = list(cobdh.xmlx.persons.create(src).items())
     print(f'init persons: {len(collection)}')
     for index, value in enumerate(collection, start=1):
         outpath = os.path.join(dst, f'{index}.xml')
         print(f'{index}', end=' ')
-        converted = cobdh.xml.persons.xml(value)
+        converted = cobdh.xmlx.persons.xml(value)
         cobdh.file_replace(
             outpath,
             content=converted,
@@ -37,7 +37,7 @@ def evalcli():
 
 
 def split(content: str, node: str) -> list:
-    parsed = cobdh.xml.parser.parse(content)
+    parsed = cobdh.xmlx.parser.parse(content)
     result = []
     for item in parsed.findall(node):
         result.append(item)

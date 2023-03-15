@@ -1,13 +1,13 @@
 import cobdh
-import cobdh.xml.inter
-import cobdh.xml.persons
+import cobdh.xmlx.inter
+import cobdh.xmlx.persons
 
 
 def enrich(content: str) -> str:
     if require(content):
         content = inject_header(content)
     # do not expand tei: to full namespace
-    cobdh.xml.inter.register_ns(content)
+    cobdh.xmlx.inter.register_ns(content)
     content = inject_author_id(content)
     return content
 
@@ -15,7 +15,7 @@ def enrich(content: str) -> str:
 def inject_header(content: str) -> str:
     # remove optional header of of content
     content = content.replace(
-        cobdh.xml.inter.HEADER,
+        cobdh.xmlx.inter.HEADER,
         '',
     )
     result = TEMPLATE % content
@@ -24,7 +24,7 @@ def inject_header(content: str) -> str:
 
 def inject_author_id(content: str) -> str:
     parsed = cobdh.xml_parse(content)
-    namespaces = cobdh.xml.persons.NS
+    namespaces = cobdh.xmlx.persons.NS
     # TODO: IMPROVE IF XPATH CAN HANDLE MULTIPLE ONE
     todos = (parsed.findall('.//tei:author', namespaces=namespaces) +
              parsed.findall('.//tei:editor', namespaces=namespaces))
@@ -33,11 +33,11 @@ def inject_author_id(content: str) -> str:
         if author.attrib.get('{http://www.w3.org/XML/1998/namespace}id', False):
             # xml:id already exists
             continue
-        author_parsed = cobdh.xml.persons.parse_person(
+        author_parsed = cobdh.xmlx.persons.parse_person(
             author,
             use_ns=True,
         )
-        hashed = cobdh.xml.persons.person_hash(author_parsed)
+        hashed = cobdh.xmlx.persons.person_hash(author_parsed)
         if not hashed:
             print(f'[ERROR]: could not hash: {author_parsed}')
             continue

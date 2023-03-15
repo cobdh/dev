@@ -1,7 +1,7 @@
 import argparse
 
 import cobdh
-import cobdh.xml.inter
+import cobdh.xmlx.inter
 
 
 def main() -> int:
@@ -18,7 +18,7 @@ def main() -> int:
         return cobdh.FAILURE
     for path in items:
         content = cobdh.file_read(path)
-        formatted = cobdh.xml.inter.xmlformat(
+        formatted = cobdh.xmlx.inter.xmlformat(
             content,
             header=True,
         )

@@ -1,7 +1,10 @@
 import collections
+import os
 
+import cobdh
 import cobdh.xmlx.enrich
 import cobdh.xmlx.persons
+import tests
 
 PERSONS = """\
 <TEI
@@ -53,3 +56,15 @@ def test_inject_author_id():
     # ensure that multiple runs does not change the result
     again = cobdh.xmlx.enrich.inject_author_id(injected)
     assert again == injected
+
+
+def test_parse_idem():
+    path = os.path.join(tests.TESTS, 'xml/data/idem.xml')
+    assert os.path.exists(path), path
+    content = cobdh.file_read(path)
+    expected = [
+        (('Macler',), ('Frédéric',)),
+        (('Idem',), ()),
+    ]
+    parsed = cobdh.xmlx.persons.parse(content)
+    assert parsed == expected

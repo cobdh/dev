@@ -9,7 +9,7 @@ def main():
     args = evalcli()
     src = args.src
     assert os.path.exists(src), src
-    cobdh.xmlx.fix.xml_id(
+    cobdh.xmlx.fix.xml_ids(
         src=src,
         dst=src,
     )

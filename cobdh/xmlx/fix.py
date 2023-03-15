@@ -8,7 +8,7 @@ import cobdh.xmlx.inter
 XML_ID = '{http://www.w3.org/XML/1998/namespace}id'
 
 
-def xml_id(src: str, dst: str) -> dict:
+def xml_ids(src: str, dst: str) -> dict:
     done = set()
     sources = cobdh.file_list(src)
     for path in sources:

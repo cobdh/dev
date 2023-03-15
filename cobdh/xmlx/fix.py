@@ -33,19 +33,14 @@ def improve_xmlid_person(content: str, done: str) -> str:
     if parsed is None:
         raise ValueError('Could not parse')
     detected, root = parsed
-    cleaned = cleanup_id(detected)
-    # TODO: XML:ID
-    xmlid = detected.attrib[XML_ID]
-    if xmlid not in done:
-        done.add(xmlid)
-        if not cleaned:
-            return None
-        print(f'clean id: {xmlid}')
-    else:
-        print(f'duplicated xmlid: {xmlid}')
-    newid = nextid(xmlid, done=done)
-    print(f'use new id: {newid}')
-    detected.attrib[XML_ID] = newid
+    xmlid = NewBiblId(root, detected, done)()
+    if xmlid is True:
+        # nothing todo
+        done.add(detected.attrib[XML_ID])
+        return None
+    done.add(xmlid)
+    detected.attrib[XML_ID] = xmlid
+    # convert node to xml
     result = cobdh.xml_tostr(
         root,
         header=True,
@@ -54,6 +49,81 @@ def improve_xmlid_person(content: str, done: str) -> str:
         result,
         header=True,
     )
+    return result
+
+
+class NewBiblId:
+    """Determine new xml-id for bibl items.
+
+    If given id does not match requirements or are not unique in hole
+    collection.
+    """
+
+    def __init__(self, root, content, done):
+        self.root = root
+        self.content = content
+        self.done = done
+        self.xmlid = content.attrib[XML_ID]
+
+    def __call__(self):
+        if self.valid:
+            # nothing todo
+            return True
+        if self.empty:
+            print(f'create xml_id from nothing: {self.xmlid}')
+            return self.new_from_empty()
+        print(f'duplicated xml_id: {self.xmlid}')
+        result = self.new_from_current()
+        print(f'new xml_id: {result}')
+        return result
+
+    def new_from_current(self):
+        new = cobdh.xmlx.clean_id(self.xmlid)
+        for _ in range(20):
+            new = nextid(new, self.done)
+            if new not in self.done:
+                return new
+        # could not find a valid id
+        assert 0, f'should not happen: {self.root}'
+
+    def new_from_empty(self):
+        new = create_id(self.root)
+        if new not in self.done:
+            return new
+        for _ in range(20):
+            new = nextid(new, self.done)
+            if new not in self.done:
+                return new
+        # could not find a valid id
+        assert 0, f'should not happen: {self.root}'
+
+    @property
+    def empty(self):
+        cleaned = cobdh.xmlx.clean_id(self.xmlid)
+        return not cleaned
+
+    @property
+    def valid(self):
+        if not self.xmlid.strip():
+            return False
+        cleaned = cobdh.xmlx.clean_id(self.xmlid)
+        if cleaned != self.xmlid:
+            return False
+        if self.xmlid in self.done:
+            return False
+        return True
+
+
+def create_id(node) -> str:
+    try:
+        year = node.find('.//tei:body//tei:date', namespaces=NS).text
+    except AttributeError:
+        year = 'YYYY'
+    try:
+        name = node.find('.//tei:body//tei:surname', namespaces=NS).text
+    except AttributeError:
+        name = 'NONAME'
+    result = f'{name}{year}'
     return result
 
 

@@ -14,6 +14,7 @@ from cobdh.utils import files_sort
 from cobdh.utils import forward_slash
 from cobdh.utils import run
 from cobdh.xmlx.inter import to_str as xml_tostr
+from cobdh.xmlx.inter import xmlformat as xml_format
 from cobdh.xmlx.parser import parse as xml_parse
 
 __version__ = '0.1.0'

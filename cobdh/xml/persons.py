@@ -45,20 +45,26 @@ def parse(content: str) -> list:
     # TODO: THERE MUST BE A BETTER WAY
     use_ns = 'xmlns:tei' in content
     use_ns |= 'xmlns="http://www.tei-c.org/ns/1.0"' in content
-    _namespace, _author = (
+    _namespace, _author, _editor = (
         NS if use_ns else None,
         './/tei:author' if use_ns else './/author',
+        './/tei:monogr/tei:editor' if use_ns else './/monogr/editor',
     )
     result = []
     try:
         parsed = cobdh.xml.parser.parse(content)
     except ValueError:
         return None
-    for author in parsed.findall(_author, namespaces=_namespace):
+    todo = (parsed.findall(_author, namespaces=_namespace) +
+            parsed.findall(_editor, namespaces=_namespace))
+    for person in todo:
         line = parse_person(
-            author,
+            person,
             use_ns=use_ns,
         )
+        if not line:
+            print(f'could not find names: {person.attrib}')
+            continue
         result.append(line)
     return result
 
@@ -79,6 +85,8 @@ def parse_person(author, use_ns: bool = False) -> tuple:
     ))
     result = (surname, forenames)
     if not surname and not forenames:
+        if not author.text:
+            return None
         # <author>Blain, Virginia</author>
         result = ((author.text), ())
     return result

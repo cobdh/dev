@@ -68,3 +68,16 @@ def test_parse_idem():
     ]
     parsed = cobdh.xmlx.persons.parse(content)
     assert parsed == expected
+
+
+def test_parse_author_raw():
+    path = os.path.join(tests.TESTS, 'xml/data/bibl/1.xml')
+    assert os.path.exists(path), path
+    content = cobdh.file_read(path)
+    expected = [
+        ('Blain, Virginia', ()),
+        ('Clements, Patricia', ()),
+    ]
+    parsed = cobdh.xmlx.persons.parse(content)
+    print(parsed)
+    assert parsed == expected

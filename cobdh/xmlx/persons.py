@@ -96,7 +96,8 @@ def parse_person(author, use_ns: bool = False) -> tuple:
         if not author.text or not author.text.strip():
             return None
         # <author>Blain, Virginia</author>
-        result = ((author.text), ())
+        # <author>\n    Blain, Virginia     \n</author>  # strip it
+        result = ((author.text.strip()), ())
     return result
 
 

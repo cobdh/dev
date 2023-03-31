@@ -12,6 +12,12 @@ def main():
     dst = os.getcwd()
     src = args.src
     assert os.path.exists(src), src
+    create_persons(dst, src)
+    cobdh.run('cob_enrich .')
+    return cobdh.SUCCESS
+
+
+def create_persons(dst, src):
     collection = list(cobdh.xmlx.persons.create(src).items())
     print(f'init persons: {len(collection)}')
     for index, value in enumerate(collection, start=1):
@@ -22,8 +28,6 @@ def main():
             outpath,
             content=converted,
         )
-    cobdh.run('cob_enrich .')
-    return cobdh.SUCCESS
 
 
 def evalcli():

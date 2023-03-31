@@ -80,3 +80,10 @@ def test_parse_author_raw():
     ]
     parsed = cobdh.xmlx.persons.parse(content)
     assert parsed == expected
+
+
+def test_persons_list():
+    listed = cobdh.xmlx.persons.persons_list(tests.PERSONS)
+    assert len(listed) == 2
+    assert 'HovhanessianVahan' in listed
+    assert 'Ovid44' in listed

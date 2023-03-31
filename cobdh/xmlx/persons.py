@@ -159,3 +159,31 @@ def simple_name(name: str) -> tuple:
     first, second = name.split(',')
     result = tuple(first.split()), tuple(second.split())
     return result
+
+
+def persons_list(src: str) -> dict:
+    result = {}
+    for path in cobdh.file_list(src):
+        content = cobdh.file_read(path)
+        xmlid = parse_xmlid(content, path)
+        if not xmlid:
+            continue
+        result[xmlid] = path
+    return result
+
+
+def parse_xmlid(content: str, path: str = None):
+    # TODO: I DO NOT LIKE THIS
+    parsed = cobdh.xml_parse(content)
+    person = parsed.find('.//tei:person', namespaces=NS)
+    if not person:
+        print(f'[ERROR]: could not find tei:person {path}')
+        return None
+    xmlid = person.attrib.get(
+        '{http://www.w3.org/XML/1998/namespace}id',
+        False,
+    )
+    if not xmlid:
+        print(f'[ERROR]: could not find @xml:id {path}')
+        return None
+    return xmlid

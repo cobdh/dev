@@ -32,6 +32,11 @@ def evalcli():
         description='Generate person data based on bibliography',
     )
     parser.add_argument('src', help='Directory with bibliography data')
+    parser.add_argument(
+        '--force',
+        action='store_true',
+        help='Overwrite existing persons, if not extend persons database',
+    )
     args = parser.parse_args()
     return args
 

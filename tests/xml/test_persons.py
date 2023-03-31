@@ -75,9 +75,8 @@ def test_parse_author_raw():
     assert os.path.exists(path), path
     content = cobdh.file_read(path)
     expected = [
-        ('Blain, Virginia', ()),
-        ('Clements, Patricia', ()),
+        (('Blain',), ('Virginia',)),
+        (('Clements',), ('Patricia',)),
     ]
     parsed = cobdh.xmlx.persons.parse(content)
-    print(parsed)
     assert parsed == expected

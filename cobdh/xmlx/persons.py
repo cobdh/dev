@@ -95,8 +95,10 @@ def parse_person(author, use_ns: bool = False) -> tuple:
             return result
         if not author.text or not author.text.strip():
             return None
-        # <author>Blain, Virginia</author>
-        # <author>\n    Blain, Virginia     \n</author>  # strip it
+        if simple := simple_name(author.text.strip()):
+            # <author>\n    Blain, Virginia     \n</author>  # strip it
+            # <author>Blain, Virginia</author>
+            return simple
         result = ((author.text.strip()), ())
     return result
 
@@ -143,4 +145,17 @@ def improve_name(person: tuple, log: bool = True) -> str:
     if log and result != person:
         print(f'\nbefore: {person[1][0]} {person[1][1]}')
         print(f'improved: {result[1][0]} {result[1][1]}')
+    return result
+
+
+def simple_name(name: str) -> tuple:
+    """\
+    >>> simple_name('Blain, Virginia')
+    (('Blain',), ('Virginia',))
+    """
+    if ',' not in name:
+        return None
+    name = name.strip()
+    first, second = name.split(',')
+    result = tuple(first.split()), tuple(second.split())
     return result

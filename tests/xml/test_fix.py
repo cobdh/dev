@@ -57,11 +57,21 @@ INVALID_XML_ID = """\
 </TEI>
 """
 
+NO_XML_ID = INVALID_XML_ID.replace('xml:id="???"', '')
+
 
 def test_fix_invalid_xml_id():
     assert 'xml:id="???"' in INVALID_XML_ID
     improved = cobdh.xmlx.fix.improve_xmlid_person(
         INVALID_XML_ID,
+        done=set(),
+    )
+    assert 'xml:id="Colless1979"' in improved
+
+
+def test_fix_no_xml_id():
+    improved = cobdh.xmlx.fix.improve_xmlid_person(
+        NO_XML_ID,
         done=set(),
     )
     assert 'xml:id="Colless1979"' in improved

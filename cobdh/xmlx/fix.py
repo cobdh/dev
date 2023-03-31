@@ -63,7 +63,7 @@ class NewBiblId:
         self.root = root
         self.content = content
         self.done = done
-        self.xmlid = content.attrib[XML_ID]
+        self.xmlid = content.attrib.get(XML_ID, '')
 
     def __call__(self):
         if self.valid:

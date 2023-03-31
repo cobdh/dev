@@ -12,22 +12,33 @@ def main():
     dst = os.getcwd()
     src = args.src
     assert os.path.exists(src), src
-    create_persons(dst, src)
+    overwrite = args.force
+    create_persons(
+        dst,
+        src,
+        overwrite=overwrite,
+    )
     cobdh.run('cob_enrich .')
     return cobdh.SUCCESS
 
 
-def create_persons(dst, src):
+def create_persons(dst, src, overwrite: bool = False):
     collection = list(cobdh.xmlx.persons.create(src).items())
     print(f'init persons: {len(collection)}')
-    for index, value in enumerate(collection, start=1):
-        outpath = os.path.join(dst, f'{index}.xml')
+    for value, index, outpath in pathgenerator(collection, dst, overwrite):
         print(f'{index}', end=' ')
         converted = cobdh.xmlx.persons.xml(value)
         cobdh.file_replace(
             outpath,
             content=converted,
         )
+
+
+def pathgenerator(collection, dst, overwrite):
+    if overwrite:
+        for index, value in enumerate(collection, start=1):
+            outpath = os.path.join(dst, f'{index}.xml')
+            yield value, index, outpath
 
 
 def evalcli():

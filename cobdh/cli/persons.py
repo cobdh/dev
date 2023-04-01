@@ -76,11 +76,3 @@ def evalcli():
     )
     args = parser.parse_args()
     return args
-
-
-def split(content: str, node: str) -> list:
-    parsed = cobdh.xmlx.parser.parse(content)
-    result = []
-    for item in parsed.findall(node):
-        result.append(item)
-    return result

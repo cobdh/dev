@@ -4,6 +4,7 @@ import os
 import cobdh
 import cobdh.xmlx.enrich
 import cobdh.xmlx.persons
+import cobdh.xmlx.persons.parser
 import tests
 
 PERSONS = """\
@@ -30,7 +31,7 @@ def test_parse():
     expected = [
         (('Hilkens',), ('Franck', 'Andy')),
     ]
-    parsed = cobdh.xmlx.persons.parse(PERSONS)
+    parsed = cobdh.xmlx.persons.parser.parse(PERSONS)
     assert parsed == expected
 
 
@@ -66,7 +67,7 @@ def test_parse_idem():
         (('Macler',), ('Frédéric',)),
         (('Idem',), ()),
     ]
-    parsed = cobdh.xmlx.persons.parse(content)
+    parsed = cobdh.xmlx.persons.parser.parse(content)
     assert parsed == expected
 
 
@@ -78,7 +79,7 @@ def test_parse_author_raw():
         (('Blain',), ('Virginia',)),
         (('Clements',), ('Patricia',)),
     ]
-    parsed = cobdh.xmlx.persons.parse(content)
+    parsed = cobdh.xmlx.persons.parser.parse(content)
     assert parsed == expected
 
 
@@ -100,7 +101,7 @@ def test_persons_cli(testdir):
 def test_arabic():
     src = os.path.join(tests.BIBL, '2.xml')
     content = cobdh.file_read(src)
-    parsed = cobdh.xmlx.persons.parse(content)
+    parsed = cobdh.xmlx.persons.parser.parse(content)
     expected = [
         (('Barsoum',), ('Ignatius', 'Afram')),
         (('\u0628\u0631\u0635\u0648\u0645',),

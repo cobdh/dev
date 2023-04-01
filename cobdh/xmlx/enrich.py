@@ -1,6 +1,7 @@
 import cobdh
 import cobdh.xmlx.inter
 import cobdh.xmlx.persons
+import cobdh.xmlx.persons.parser
 
 
 def enrich(content: str) -> str:
@@ -33,7 +34,7 @@ def inject_author_id(content: str) -> str:
         if author.attrib.get('{http://www.w3.org/XML/1998/namespace}id', False):
             # xml:id already exists
             continue
-        author_parsed = cobdh.xmlx.persons.parse_person(
+        author_parsed = cobdh.xmlx.persons.parser.parse_person(
             author,
             use_ns=True,
         )

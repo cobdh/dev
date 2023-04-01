@@ -2,6 +2,7 @@ import os
 
 from cobdh.str import alphabetically
 from cobdh.str import replace
+from cobdh.str import scribe
 from cobdh.utils import FAILURE
 from cobdh.utils import NEWLINE
 from cobdh.utils import SUCCESS

@@ -49,6 +49,22 @@ def fix_encoding(msg: str) -> str:
     return msg
 
 
+def scribe(*msg: str, sep: str = ' ', end: str = '\n'):
+    """Log safely to console.
+
+    >>> scribe('Hello')
+    Hello
+    """
+    msg = sep.join(msg)
+    msg = fix_encoding(msg)
+    print(
+        msg,
+        file=sys.stdout,
+        end=end,
+        flush=True,
+    )
+
+
 TABLE = """\
 α           a
 β           b

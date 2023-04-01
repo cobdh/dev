@@ -139,7 +139,7 @@ def forward_slash(content: str, keep_newline: bool = False) -> str:
     >>> forward_slash('\\helm\\nelm')
     '/helm/nelm'
     """
-    assert isinstance(content, str), str(content)
+    asserts(content, str)
     pattern = BACKSLASH
     if keep_newline:
         pattern = NL

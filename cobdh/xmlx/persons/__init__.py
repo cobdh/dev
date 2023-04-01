@@ -31,7 +31,7 @@ def xml(person: 'cobdh.Person') -> str:
     >>> import cobdh;xml(cobdh.Person(names=(cobdh.Name(surname=('Hovhanessian',), forename=('Vahan',), lang='ar'),))).replace('  ', '')
     '<person xml:id="HovhanessianVahan">\n<persName xml:lang="ar">\n<surname>Hovhanessian</surname>\n...'
     """
-    assert isinstance(person, cobdh.Person), f'invalid input: {person} {type(person)}'  # yapf:disable
+    cobdh.asserts(person, cobdh.Person)
     person = cobdh.xmlx.persons.magic.improve_name(person)
     xmlid = person.xmlid
     root = ET.Element('person', attrib={'xml:id': xmlid})

@@ -9,7 +9,7 @@ def improve_name(person: 'cobdh.Person', log: bool = True) -> str:
     improved: ('Hovhanessian',) ('Vahan', 'A.', 'B.')
     Person(names=[Name(surname=('Vahan', 'A.', 'B.'), forename=('Hovhanessian',), lang='en')])
     """
-    assert isinstance(person, cobdh.Person), f'invalid input: {person} {type(person)}'  # yapf:disable
+    cobdh.asserts(person, cobdh.Person)
     for name in person.names:
         surname = []
         for item in name.surname:

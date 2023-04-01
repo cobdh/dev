@@ -87,3 +87,11 @@ def test_persons_list():
     assert len(listed) == 2
     assert 'HovhanessianVahan' in listed
     assert 'Ovid44' in listed
+
+
+def test_persons_cli(testdir):
+    src = tests.BIBL
+    cobdh.run(f'cob_persons {src}')
+    expected = 6
+    persons = cobdh.file_list(path=testdir.tmpdir)
+    assert len(persons) >= expected

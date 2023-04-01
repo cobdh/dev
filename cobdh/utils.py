@@ -4,6 +4,8 @@ import pathlib
 import re
 import subprocess
 
+import cobdh
+
 SUCCESS = 0
 FAILURE = 1
 NEWLINE = '\n'
@@ -150,7 +152,10 @@ def run(cmd: str, cwd: str = None, expect=True):
         universal_newlines=True,
     )
     if expect:
-        assert completed.returncode == SUCCESS, str(completed)
+        if completed.returncode != SUCCESS:
+            cobdh.scribe(completed.stdout)
+            cobdh.error(completed.stderr)
+        assert completed.returncode == SUCCESS
     elif expect is False:  # pylint:disable=compare-to-zero
         assert completed.returncode >= FAILURE, str(completed)
     return completed

@@ -23,14 +23,14 @@ def main():
 
 
 def create_persons(dst, src, overwrite: bool = False):
-    collection = list(cobdh.xmlx.persons.create(src).items())
+    collection = list(cobdh.xmlx.persons.create(src).values())
     cobdh.scribe(f'init persons: {len(collection)}')
     for path in pathgenerator(collection, dst, overwrite):
         if not path:
             continue
-        value, index, outpath = path
+        person, index, outpath = path
         cobdh.scribe(f'{index}', end=' ')
-        converted = cobdh.xmlx.persons.xml(value)
+        converted = cobdh.xmlx.persons.xml(person)
         cobdh.file_replace(
             outpath,
             content=converted,
@@ -49,13 +49,16 @@ def pathgenerator(collection, dst, overwrite):
     index = 1
     # TODO: REWRITE THIS CRAZY PEACE OF CODE
     for value in collection:
-        xmlid = value[0].strip()
+        xmlid = value.xmlid
         if not xmlid:
-            cobdh.error(f'invalid xmlid: {value}\n')
+            cobdh.error(f'invalid xmlid: {value}')
             yield None
+            continue
         if xmlid in parsed:
             # path already exists
+            cobdh.scribe(f'already done: {value.xmlid}')
             yield None
+            continue
         while index in done:
             index += 1
         outpath = os.path.join(dst, f'{index}.xml')

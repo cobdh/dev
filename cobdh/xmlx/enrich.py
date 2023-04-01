@@ -38,7 +38,7 @@ def inject_author_id(content: str) -> str:
             author,
             use_ns=True,
         )
-        hashed = cobdh.xmlx.persons.person_hash(author_parsed)
+        hashed = author_parsed.xmlid
         if not hashed:
             cobdh.error(f'could not hash: {author_parsed}')
             continue

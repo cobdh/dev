@@ -14,10 +14,18 @@ def parse(content: str) -> list:
     use_ns |= 'xmlns="http://www.tei-c.org/ns/1.0"' in content
     result = []
     for person in todo:
-        line = parse_person(
-            person,
-            use_ns=use_ns,
-        )
+        if isinstance(person, list):
+            # multiple names
+            line = [parse_person(item, use_ns=use_ns).names for item in person]
+            # TODO: MAKE PARSER MORE ROBUST
+            line = [item[0] for item in line if item]
+            if line:
+                line = cobdh.Person(names=line)
+        else:
+            line = parse_person(
+                person,
+                use_ns=use_ns,
+            )
         if not line:
             raw = [item.text for item in person]
             cobdh.scribe(f'could not find names: {raw} {person.attrib}')
@@ -58,14 +66,13 @@ def find_persons(content: str) -> list:
             #         <surname>برصوم</surname>
             #     </persName>
             # </author>
-            for person in item:
-                result.append(person)
+            result.append(list(item))
         else:
             result.append(item)
     return result
 
 
-def parse_person(author, use_ns: bool = False) -> tuple:
+def parse_person(author, use_ns: bool = False) -> 'cobdh.Person':
     _namespace, _surname, _forename = (
         NS if use_ns else None,
         'tei:surname' if use_ns else 'surname',
@@ -79,20 +86,44 @@ def parse_person(author, use_ns: bool = False) -> tuple:
         _forename,
         namespaces=_namespace,
     ))
-    result = (surname, forenames)
+    lang = parse_lang(author)
+    person = cobdh.Person()
     if not surname and not forenames:
         # TODO: HACKY
         if name := tuple(item.text for item in author):
             # <editor>
             #     <name>Idem</name>
             # </editor>
-            result = (name, ())
-            return result
+            person.names.append(cobdh.Name(surname=name, lang=lang))
+            return person
         if not author.text or not author.text.strip():
             return None
         if simple := cobdh.xmlx.persons.magic.simple_name(author.text.strip()):
             # <author>\n    Blain, Virginia     \n</author>  # strip it
             # <author>Blain, Virginia</author>
-            return simple
-        result = ((author.text.strip()), ())
-    return result
+            person.names.append(
+                cobdh.Name(
+                    surname=simple[0],
+                    forename=simple[1],
+                    lang=lang,
+                ))
+            return person
+        person.names.append(cobdh.Name(surname=(author.text.strip())))
+    person.names.append(
+        cobdh.Name(
+            surname=surname,
+            forename=forenames,
+            lang=lang,
+        ))
+    return person
+
+
+def parse_lang(author) -> str:
+    lang = author.attrib.get(
+        '{http://www.w3.org/XML/1998/namespace}lang',
+        False,
+    )
+    if lang:
+        return lang
+    # default lang
+    return 'en'

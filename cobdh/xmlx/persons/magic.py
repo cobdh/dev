@@ -1,26 +1,30 @@
 import cobdh
 
 
-def improve_name(person: tuple, log: bool = True) -> str:
+def improve_name(person: 'cobdh.Person', log: bool = True) -> str:
     """\
-    >>> improve_name(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan A. B.', ))))
+    >>> import cobdh;improve_name(cobdh.Person(names=[cobdh.Name(forename=('Hovhanessian',), surname=('Vahan A. B.', ))]))
     <BLANKLINE>
     before: ('Hovhanessian',) ('Vahan A. B.',)
     improved: ('Hovhanessian',) ('Vahan', 'A.', 'B.')
-    ('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan', 'A.', 'B.')))
+    Person(names=[Name(surname=('Vahan', 'A.', 'B.'), forename=('Hovhanessian',), lang='en')])
     """
-    assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
-    forename = []
-    for item in person[1][1]:
-        forename.extend(item.split())
-    surname = []
-    for item in person[1][0]:
-        surname.extend(item.split())
-    result = (person[0], (tuple(surname), tuple(forename)))
-    if log and result != person:
-        cobdh.scribe(f'\nbefore: {person[1][0]} {person[1][1]}')
-        cobdh.scribe(f'improved: {result[1][0]} {result[1][1]}')
-    return result
+    assert isinstance(person, cobdh.Person), f'invalid input: {person} {type(person)}'  # yapf:disable
+    for name in person.names:
+        surname = []
+        for item in name.surname:
+            surname.extend(item.split())
+        surname: tuple = tuple(surname)
+        forename = []
+        for item in name.forename:
+            forename.extend(item.split())
+        forename: tuple = tuple(forename)
+        if log and surname != name.surname or forename != name.forename:
+            cobdh.scribe(f'\nbefore: {name.forename} {name.surname}')
+            cobdh.scribe(f'improved: {forename} {surname}')
+        name.surname = surname
+        name.forename = forename
+    return person
 
 
 def simple_name(name: str) -> tuple:

@@ -22,8 +22,7 @@ def create(path: str) -> dict:
             cobdh.error(f'could not find author: {src}')
             continue
         for person in parsed:
-            hashed = person_hash(person)
-            result[hashed] = person
+            result[person.xmlid] = person
     return result
 
 
@@ -43,25 +42,29 @@ NS = {
 }
 
 
-def xml(person: tuple) -> str:
+def xml(person: 'cobdh.Person') -> str:
     r"""\
-    >>> xml(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan',)))).replace('  ', '')
-    '<person xml:id="HovhanessianVahan">\n<persName>\n<surname>Hovhanessian</surname>\n...'
+    >>> import cobdh;xml(cobdh.Person(names=(cobdh.Name(surname=('Hovhanessian',), forename=('Vahan',), lang='ar'),))).replace('  ', '')
+    '<person xml:id="HovhanessianVahan">\n<persName xml:lang="ar">\n<surname>Hovhanessian</surname>\n...'
     """
-    assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
+    assert isinstance(person, cobdh.Person), f'invalid input: {person} {type(person)}'  # yapf:disable
     person = cobdh.xmlx.persons.magic.improve_name(person)
-    xmlid = cobdh.xmlx.clean_id(person[0])
+    xmlid = person.xmlid
     root = ET.Element('person', attrib={'xml:id': xmlid})
-    pers = ET.SubElement(root, 'persName')
-    surnames = person[1][0]
-    for name in surnames:
-        if name.lower() in 'van der von zu':
-            ET.SubElement(pers, 'nameLink').text = name
-        else:
-            ET.SubElement(pers, 'surname').text = name
-    forenames = person[1][1]
-    for forename in forenames:
-        ET.SubElement(pers, 'forename').text = forename
+    for name in person.names:
+        pers = ET.SubElement(root, 'persName')
+        if name.lang != 'en':
+            # non default lang
+            pers.attrib['xml:lang'] = name.lang
+        surnames = name.surname
+        for surename in surnames:
+            if surename.lower() in 'van der von zu':
+                ET.SubElement(pers, 'nameLink').text = surename
+            else:
+                ET.SubElement(pers, 'surname').text = surename
+        forenames = name.forename
+        for forename in forenames:
+            ET.SubElement(pers, 'forename').text = forename
     result = cobdh.xmlx.inter.to_str(root)
     return result
 

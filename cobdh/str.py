@@ -55,6 +55,7 @@ def scribe(*msg: str, sep: str = ' ', end: str = '\n'):
     >>> scribe('Hello')
     Hello
     """
+    msg = (str(it) for it in msg)
     msg = sep.join(msg)
     msg = fix_encoding(msg)
     print(

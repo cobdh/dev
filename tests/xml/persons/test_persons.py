@@ -7,10 +7,46 @@ import tests
 import tests.xml.persons
 
 EXPECTED = collections.OrderedDict([
-    ('HovhanessianVahan', (('Hovhanessian',), ('Vahan',))),
-    ('MuyldermansJoseph', (('Muyldermans',), ('Joseph',))),
-    ('TakahashiHidemi', (('Takahashi',), ('Hidemi',))),
-    ('SemmelFranck', (('Semmel',), ('Franck',)))
+    (
+        'HovhanessianVahan',
+        cobdh.Person(names=[
+            cobdh.Name(
+                surname=('Hovhanessian',),
+                forename=('Vahan',),
+                lang='en',
+            ),
+        ]),
+    ),
+    (
+        'MuyldermansJoseph',
+        cobdh.Person(names=[
+            cobdh.Name(
+                surname=('Muyldermans',),
+                forename=('Joseph',),
+                lang='en',
+            ),
+        ]),
+    ),
+    (
+        'TakahashiHidemi',
+        cobdh.Person(names=[
+            cobdh.Name(
+                surname=('Takahashi',),
+                forename=('Hidemi',),
+                lang='en',
+            ),
+        ]),
+    ),
+    (
+        'SemmelFranck',
+        cobdh.Person(names=[
+            cobdh.Name(
+                surname=('Semmel',),
+                forename=('Franck',),
+                lang='en',
+            ),
+        ]),
+    ),
 ])
 
 

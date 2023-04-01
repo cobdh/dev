@@ -65,6 +65,19 @@ def scribe(*msg: str, sep: str = ' ', end: str = '\n'):
     )
 
 
+def error(*msg: str, sep: str = ' ', end: str = '\n'):
+    """Log error safely to stderr."""
+    msg = sep.join(msg)
+    msg = f'[ERROR]: {msg}'
+    msg = fix_encoding(msg)
+    print(
+        msg,
+        file=sys.stderr,
+        end=end,
+        flush=True,
+    )
+
+
 TABLE = """\
 α           a
 β           b

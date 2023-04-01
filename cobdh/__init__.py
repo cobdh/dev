@@ -1,6 +1,7 @@
 import os
 
 from cobdh.str import alphabetically
+from cobdh.str import error
 from cobdh.str import replace
 from cobdh.str import scribe
 from cobdh.utils import FAILURE

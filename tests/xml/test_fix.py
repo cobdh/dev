@@ -73,3 +73,8 @@ def test_fix_no_xml_id():
         done=set(),
     )
     assert 'xml:id="Colless1979"' in improved
+
+
+def test_cli_fix(samples):
+    src = samples.tmpdir
+    cobdh.run(f'cob_bibl {src}')

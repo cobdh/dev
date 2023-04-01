@@ -16,13 +16,13 @@ def xml_ids(src: str, dst: str) -> dict:
         try:
             improved = improve_xmlid_person(content, done)
         except ValueError:
-            print(f'[ERROR]: could not parse: {path}')
+            cobdh.scribe(f'[ERROR]: could not parse: {path}')
             continue
         if not improved:
             continue
         fname = cobdh.file_name(path, ext=True)
         outpath = cobdh.forward_slash(os.path.join(dst, fname))
-        print(f'replace: {outpath}\n')
+        cobdh.scribe(f'replace: {outpath}\n')
         cobdh.file_replace(outpath, improved)
 
 
@@ -70,11 +70,11 @@ class NewBiblId:
             # nothing todo
             return True
         if self.empty:
-            print(f'create xml_id from nothing: {self.xmlid}')
+            cobdh.scribe(f'create xml_id from nothing: {self.xmlid}')
             return self.new_from_empty()
-        print(f'duplicated xml_id: {self.xmlid}')
+        cobdh.scribe(f'duplicated xml_id: {self.xmlid}')
         result = self.new_from_current()
-        print(f'new xml_id: {result}')
+        cobdh.scribe(f'new xml_id: {result}')
         return result
 
     def new_from_current(self):

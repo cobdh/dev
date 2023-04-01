@@ -26,7 +26,7 @@ def urls(root: str = BASE, deep: int = 5) -> list:
     try:
         content = curl(root)
     except urllib.error.HTTPError:
-        print(f'could not curl: {root}')
+        cobdh.scribe(f'could not curl: {root}')
         result[root].add('[OFFLINE]')
         return result
     for hyperhyper in HREF.findall(content):
@@ -72,9 +72,9 @@ def curl(path: str):
 
 def main() -> int:
     result = urls(deep=5)
-    print()
+    cobdh.scribe()
     for key, value in result.items():
-        print(f'{key}\n\t{value}\n')
+        cobdh.scribe(f'{key}\n\t{value}\n')
     return cobdh.SUCCESS
 
 

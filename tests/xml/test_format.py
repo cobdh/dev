@@ -171,5 +171,5 @@ XSL = """\
 
 def test_format_xsl():
     formatted = cobdh.xmlx.inter.xmlformat(XSL)
-    print(formatted)
+    cobdh.scribe(formatted)
     assert formatted == XSL, formatted

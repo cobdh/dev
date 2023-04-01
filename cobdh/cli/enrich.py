@@ -11,26 +11,26 @@ def main() -> int:
         path,
         exts='xml',
     )
-    print('detected:')
+    cobdh.scribe('detected:')
     for path in items:
-        print(path)
+        cobdh.scribe(path)
     if not items:
-        print('nothing todo')
+        cobdh.scribe('nothing todo')
         return cobdh.FAILURE
     for path in items:
         before = cobdh.file_read(path)
         content = cobdh.xmlx.enrich.enrich(before)
         if before != content:
-            print(f'enrich: {path}')
+            cobdh.scribe(f'enrich: {path}')
         formatted = cobdh.xmlx.inter.xmlformat(
             content,
             header=True,
         )
         if formatted == before:
-            print(f'skip: {path}')
+            cobdh.scribe(f'skip: {path}')
             continue
-        print(f'format: {path}')
-        print()
+        cobdh.scribe(f'format: {path}')
+        cobdh.scribe()
         cobdh.file_replace(
             path,
             content=formatted,

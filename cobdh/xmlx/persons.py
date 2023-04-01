@@ -14,10 +14,10 @@ def create(path: str) -> dict:
         content = cobdh.file_read(src)
         parsed = parse(content)
         if parsed is None:
-            print(f'[ERROR]: could not parse: {src}')
+            cobdh.scribe(f'[ERROR]: could not parse: {src}')
             continue
         if not parsed:
-            print(f'[ERROR]: could not find author: {src}')
+            cobdh.scribe(f'[ERROR]: could not find author: {src}')
             continue
         for person in parsed:
             hashed = person_hash(person)
@@ -55,7 +55,7 @@ def parse(content: str) -> list:
         )
         if not line:
             raw = [item.text for item in person]
-            print(f'could not find names: {raw} {person.attrib}')
+            cobdh.scribe(f'could not find names: {raw} {person.attrib}')
             continue
         result.append(line)
     return result
@@ -173,8 +173,8 @@ def improve_name(person: tuple, log: bool = True) -> str:
         surname.extend(item.split())
     result = (person[0], (tuple(surname), tuple(forename)))
     if log and result != person:
-        print(f'\nbefore: {person[1][0]} {person[1][1]}')
-        print(f'improved: {result[1][0]} {result[1][1]}')
+        cobdh.scribe(f'\nbefore: {person[1][0]} {person[1][1]}')
+        cobdh.scribe(f'improved: {result[1][0]} {result[1][1]}')
     return result
 
 
@@ -207,13 +207,13 @@ def parse_xmlid(content: str, path: str = None):
     parsed = cobdh.xml_parse(content)
     person = parsed.find('.//tei:person', namespaces=NS)
     if not person:
-        print(f'[ERROR]: could not find tei:person {path}')
+        cobdh.scribe(f'[ERROR]: could not find tei:person {path}')
         return None
     xmlid = person.attrib.get(
         '{http://www.w3.org/XML/1998/namespace}id',
         False,
     )
     if not xmlid:
-        print(f'[ERROR]: could not find @xml:id {path}')
+        cobdh.scribe(f'[ERROR]: could not find @xml:id {path}')
         return None
     return xmlid

@@ -10,11 +10,11 @@ def main() -> int:
         path,
         exts=exts,
     )
-    print('detected:')
+    cobdh.scribe('detected:')
     for path in items:
-        print(path)
+        cobdh.scribe(path)
     if not items:
-        print('nothing todo')
+        cobdh.scribe('nothing todo')
         return cobdh.FAILURE
     for path in items:
         content = cobdh.file_read(path)
@@ -23,9 +23,9 @@ def main() -> int:
             header=True,
         )
         if formatted == content:
-            print(f'skip: {path}')
+            cobdh.scribe(f'skip: {path}')
             continue
-        print(f'format: {path}')
+        cobdh.scribe(f'format: {path}')
         cobdh.file_replace(
             path,
             content=formatted,

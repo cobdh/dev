@@ -107,6 +107,17 @@ def files_sort(files: list) -> list:
     return files
 
 
+def asserts(value, expected):
+    """\
+    >>> asserts(0, str)
+    Traceback (most recent call last):
+    ...
+    TypeError: invalid: 0 <class 'int'>
+    """
+    if not isinstance(value, expected):
+        raise TypeError(f'invalid: {value} {type(value)}')
+
+
 BACKSLASH = re.compile(r'\\')
 NL = re.compile(r'\\(?!n)')
 

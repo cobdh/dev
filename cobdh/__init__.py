@@ -7,6 +7,7 @@ from cobdh.str import scribe
 from cobdh.utils import FAILURE
 from cobdh.utils import NEWLINE
 from cobdh.utils import SUCCESS
+from cobdh.utils import asserts
 from cobdh.utils import file_create
 from cobdh.utils import file_list
 from cobdh.utils import file_name

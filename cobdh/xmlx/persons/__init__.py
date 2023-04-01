@@ -37,11 +37,6 @@ def person_hash(person):
     return hashed
 
 
-NS = {
-    'tei': 'http://www.tei-c.org/ns/1.0',
-}
-
-
 def xml(person: 'cobdh.Person') -> str:
     r"""\
     >>> import cobdh;xml(cobdh.Person(names=(cobdh.Name(surname=('Hovhanessian',), forename=('Vahan',), lang='ar'),))).replace('  ', '')
@@ -83,7 +78,7 @@ def persons_list(src: str) -> dict:
 def parse_xmlid(content: str, path: str = None):
     # TODO: I DO NOT LIKE THIS
     parsed = cobdh.xml_parse(content)
-    person = parsed.find('.//tei:person', namespaces=NS)
+    person = parsed.find('.//tei:person', namespaces=cobdh.xmlx.NS)
     if not person:
         cobdh.error(f'could not find tei:person {path}')
         return None

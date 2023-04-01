@@ -114,11 +114,14 @@ class NewBiblId:
 
 def create_id(node) -> str:
     try:
-        year = node.find('.//tei:body//tei:date', namespaces=NS).text
+        year = node.find('.//tei:body//tei:date', namespaces=cobdh.xmlx.NS).text
     except AttributeError:
         year = 'YYYY'
     try:
-        name = node.find('.//tei:body//tei:surname', namespaces=NS).text
+        name = node.find(
+            './/tei:body//tei:surname',
+            namespaces=cobdh.xmlx.NS,
+        ).text
     except AttributeError:
         name = 'NONAME'
     result = f'{name}{year}'
@@ -142,18 +145,13 @@ def nextid(current: str, done: set):
     return new
 
 
-NS = {
-    'tei': 'http://www.tei-c.org/ns/1.0',
-}
-
-
 def parse(content: str):
     try:
         parsed = cobdh.xmlx.parser.parse(content)
     except ValueError:
         return None
     for item in './/tei:biblStruct .//tei:biblFull'.split():
-        detected = parsed.find(item, namespaces=NS)
+        detected = parsed.find(item, namespaces=cobdh.xmlx.NS)
         if detected:
             return detected, parsed
     return None

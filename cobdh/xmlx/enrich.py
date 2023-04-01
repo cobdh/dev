@@ -26,7 +26,7 @@ def inject_header(content: str) -> str:
 
 def inject_author_id(content: str) -> str:
     parsed = cobdh.xml_parse(content)
-    namespaces = cobdh.xmlx.persons.NS
+    namespaces = cobdh.xmlx.NS
     # TODO: IMPROVE IF XPATH CAN HANDLE MULTIPLE ONE
     todos = (parsed.findall('.//tei:author', namespaces=namespaces) +
              parsed.findall('.//tei:editor', namespaces=namespaces))

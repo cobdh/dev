@@ -2,10 +2,6 @@ import cobdh
 import cobdh.xmlx
 import cobdh.xmlx.persons.magic
 
-NS = {
-    'tei': 'http://www.tei-c.org/ns/1.0',
-}
-
 
 def parse(content: str) -> list:
     todo = find_persons(content)
@@ -41,7 +37,7 @@ def find_persons(content: str) -> list:
     use_ns = 'xmlns:tei' in content
     use_ns |= 'xmlns="http://www.tei-c.org/ns/1.0"' in content
     _namespace, _author, _editor = (
-        NS if use_ns else None,
+        cobdh.xmlx.NS if use_ns else None,
         './/tei:author' if use_ns else './/author',
         './/tei:monogr/tei:editor' if use_ns else './/monogr/editor',
     )
@@ -75,7 +71,7 @@ def find_persons(content: str) -> list:
 
 def parse_person(author, use_ns: bool = False) -> 'cobdh.Person':
     _namespace, _surname, _forename = (
-        NS if use_ns else None,
+        cobdh.xmlx.NS if use_ns else None,
         'tei:surname' if use_ns else 'surname',
         'tei:forename' if use_ns else 'forename',
     )

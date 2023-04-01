@@ -30,7 +30,7 @@ def main():
         try:
             formatted = cobdh.xmlx.inter.xmlformat(value)
         except ValueError:
-            cobdh.scribe(f'[ERROR]: could not create: {index}')
+            cobdh.error(f'could not create: {index}')
             failure += 1
             continue
         path = os.path.join(root, f'{index}.xml')

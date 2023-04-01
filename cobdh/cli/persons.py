@@ -51,7 +51,7 @@ def pathgenerator(collection, dst, overwrite):
     for value in collection:
         xmlid = value[0].strip()
         if not xmlid:
-            cobdh.scribe(f'[ERROR]: invalid xmlid: {value}\n')
+            cobdh.error(f'invalid xmlid: {value}\n')
             yield None
         if xmlid in parsed:
             # path already exists

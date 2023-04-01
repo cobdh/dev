@@ -14,10 +14,10 @@ def create(path: str) -> dict:
         content = cobdh.file_read(src)
         parsed = parse(content)
         if parsed is None:
-            cobdh.scribe(f'[ERROR]: could not parse: {src}')
+            cobdh.error(f'could not parse: {src}')
             continue
         if not parsed:
-            cobdh.scribe(f'[ERROR]: could not find author: {src}')
+            cobdh.error(f'could not find author: {src}')
             continue
         for person in parsed:
             hashed = person_hash(person)
@@ -207,13 +207,13 @@ def parse_xmlid(content: str, path: str = None):
     parsed = cobdh.xml_parse(content)
     person = parsed.find('.//tei:person', namespaces=NS)
     if not person:
-        cobdh.scribe(f'[ERROR]: could not find tei:person {path}')
+        cobdh.error(f'could not find tei:person {path}')
         return None
     xmlid = person.attrib.get(
         '{http://www.w3.org/XML/1998/namespace}id',
         False,
     )
     if not xmlid:
-        cobdh.scribe(f'[ERROR]: could not find @xml:id {path}')
+        cobdh.error(f'could not find @xml:id {path}')
         return None
     return xmlid

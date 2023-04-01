@@ -16,7 +16,7 @@ def xml_ids(src: str, dst: str) -> dict:
         try:
             improved = improve_xmlid_person(content, done)
         except ValueError:
-            cobdh.scribe(f'[ERROR]: could not parse: {path}')
+            cobdh.error(f'could not parse: {path}')
             continue
         if not improved:
             continue

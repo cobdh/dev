@@ -23,6 +23,7 @@ setuptools.setup(
         'cobdh',
         'cobdh.cli',
         'cobdh.xmlx',
+        'cobdh.xmlx.persons',
     ],
     entry_points={
         'console_scripts': [

@@ -5,6 +5,7 @@ import cobdh
 import cobdh.xmlx
 import cobdh.xmlx.inter
 import cobdh.xmlx.parser
+import cobdh.xmlx.persons.magic
 
 
 def create(path: str) -> dict:
@@ -125,7 +126,7 @@ def parse_person(author, use_ns: bool = False) -> tuple:
             return result
         if not author.text or not author.text.strip():
             return None
-        if simple := simple_name(author.text.strip()):
+        if simple := cobdh.xmlx.persons.magic.simple_name(author.text.strip()):
             # <author>\n    Blain, Virginia     \n</author>  # strip it
             # <author>Blain, Virginia</author>
             return simple
@@ -139,7 +140,7 @@ def xml(person: tuple) -> str:
     '<person xml:id="HovhanessianVahan">\n<persName>\n<surname>Hovhanessian</surname>\n...'
     """
     assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
-    person = improve_name(person)
+    person = cobdh.xmlx.persons.magic.improve_name(person)
     xmlid = cobdh.xmlx.clean_id(person[0])
     root = ET.Element('person', attrib={'xml:id': xmlid})
     pers = ET.SubElement(root, 'persName')
@@ -153,41 +154,6 @@ def xml(person: tuple) -> str:
     for forename in forenames:
         ET.SubElement(pers, 'forename').text = forename
     result = cobdh.xmlx.inter.to_str(root)
-    return result
-
-
-def improve_name(person: tuple, log: bool = True) -> str:
-    """\
-    >>> improve_name(('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan A. B.', ))))
-    <BLANKLINE>
-    before: ('Hovhanessian',) ('Vahan A. B.',)
-    improved: ('Hovhanessian',) ('Vahan', 'A.', 'B.')
-    ('Hovhanessian Vahan', (('Hovhanessian',), ('Vahan', 'A.', 'B.')))
-    """
-    assert isinstance(person, tuple), f'invalid input: {person} {type(person)}'
-    forename = []
-    for item in person[1][1]:
-        forename.extend(item.split())
-    surname = []
-    for item in person[1][0]:
-        surname.extend(item.split())
-    result = (person[0], (tuple(surname), tuple(forename)))
-    if log and result != person:
-        cobdh.scribe(f'\nbefore: {person[1][0]} {person[1][1]}')
-        cobdh.scribe(f'improved: {result[1][0]} {result[1][1]}')
-    return result
-
-
-def simple_name(name: str) -> tuple:
-    """\
-    >>> simple_name('Blain, Virginia')
-    (('Blain',), ('Virginia',))
-    """
-    if ',' not in name:
-        return None
-    name = name.strip()
-    first, second = name.split(',')
-    result = tuple(first.split()), tuple(second.split())
     return result
 
 

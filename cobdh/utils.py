@@ -107,6 +107,17 @@ def files_sort(files: list) -> list:
     return files
 
 
+def join(*items, exist: bool = False) -> str:
+    """\
+    >>> join('hello', 'tello/well', 'wello')
+    'hello/tello/well/wello'
+    """
+    path = os.path.join(*items)
+    path = forward_slash(path)
+    assert not exist or os.path.exists(path), path
+    return path
+
+
 def asserts(value, expected):
     """\
     >>> asserts(0, str)

@@ -26,17 +26,6 @@ def create(path: str) -> dict:
     return result
 
 
-def person_hash(person):
-    """\
-    >>> person_hash((('Hovhanessian',), ('Vahan A. B.', )))
-    'HovhanessianVahanAB'
-    """
-    hashed = ' '.join(person[0]) + ' '
-    hashed += ' '.join(person[1])
-    hashed: str = cobdh.xmlx.clean_id(hashed)
-    return hashed
-
-
 def xml(person: 'cobdh.Person') -> str:
     r"""\
     >>> import cobdh;xml(cobdh.Person(names=(cobdh.Name(surname=('Hovhanessian',), forename=('Vahan',), lang='ar'),))).replace('  ', '')

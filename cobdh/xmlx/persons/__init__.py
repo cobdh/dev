@@ -88,7 +88,7 @@ def parse_xmlid(content: str, path: str = None):
         cobdh.error(f'could not find tei:person {path}')
         return None
     xmlid = person.attrib.get(
-        '{http://www.w3.org/XML/1998/namespace}id',
+        cobdh.xmlx.XML_ID,
         False,
     )
     if not xmlid:

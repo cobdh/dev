@@ -5,8 +5,6 @@ import cobdh
 import cobdh.xmlx
 import cobdh.xmlx.inter
 
-XML_ID = '{http://www.w3.org/XML/1998/namespace}id'
-
 
 def xml_ids(src: str, dst: str) -> dict:
     done = set()
@@ -36,10 +34,10 @@ def improve_xmlid_person(content: str, done: str) -> str:
     xmlid = NewBiblId(root, detected, done)()
     if xmlid is True:
         # nothing todo
-        done.add(detected.attrib[XML_ID])
+        done.add(detected.attrib[cobdh.xmlx.XML_ID])
         return None
     done.add(xmlid)
-    detected.attrib[XML_ID] = xmlid
+    detected.attrib[cobdh.xmlx.XML_ID] = xmlid
     # convert node to xml
     result = cobdh.xml_tostr(
         root,
@@ -63,7 +61,7 @@ class NewBiblId:
         self.root = root
         self.content = content
         self.done = done
-        self.xmlid = content.attrib.get(XML_ID, '')
+        self.xmlid = content.attrib.get(cobdh.xmlx.XML_ID, '')
 
     def __call__(self):
         if self.valid:
@@ -129,11 +127,11 @@ def create_id(node) -> str:
 
 def cleanup_id(node):
     """Remove danger elements `-:;` out of element identifier."""
-    xmlid = node.attrib[XML_ID]
+    xmlid = node.attrib[cobdh.xmlx.XML_ID]
     cleaned = cobdh.xmlx.clean_id(xmlid)
     if xmlid == cleaned:
         return None
-    node.attrib[XML_ID] = cleaned
+    node.attrib[cobdh.xmlx.XML_ID] = cleaned
     return node
 
 

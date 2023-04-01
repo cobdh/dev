@@ -1,4 +1,5 @@
 import cobdh
+import cobdh.xmlx
 import cobdh.xmlx.persons.magic
 
 NS = {
@@ -120,7 +121,7 @@ def parse_person(author, use_ns: bool = False) -> 'cobdh.Person':
 
 def parse_lang(author) -> str:
     lang = author.attrib.get(
-        '{http://www.w3.org/XML/1998/namespace}lang',
+        cobdh.xmlx.XML_LANG,
         False,
     )
     if lang:

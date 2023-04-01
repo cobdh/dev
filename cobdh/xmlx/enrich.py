@@ -1,4 +1,5 @@
 import cobdh
+import cobdh.xmlx
 import cobdh.xmlx.inter
 import cobdh.xmlx.persons
 import cobdh.xmlx.persons.parser
@@ -31,7 +32,7 @@ def inject_author_id(content: str) -> str:
              parsed.findall('.//tei:editor', namespaces=namespaces))
     for author in todos:
         # TODO: THERE MUST BE A BETTER WAY
-        if author.attrib.get('{http://www.w3.org/XML/1998/namespace}id', False):
+        if author.attrib.get(cobdh.xmlx.XML_ID, False):
             # xml:id already exists
             continue
         author_parsed = cobdh.xmlx.persons.parser.parse_person(

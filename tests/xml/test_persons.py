@@ -95,3 +95,16 @@ def test_persons_cli(testdir):
     expected = 6
     persons = cobdh.file_list(path=testdir.tmpdir)
     assert len(persons) >= expected
+
+
+def test_arabic():
+    src = os.path.join(tests.BIBL, '2.xml')
+    content = cobdh.file_read(src)
+    parsed = cobdh.xmlx.persons.parse(content)
+    expected = [
+        (('Barsoum',), ('Ignatius', 'Afram')),
+        (('\u0628\u0631\u0635\u0648\u0645',),
+         ('\u0627\u063a\u0646\u0627\u0637\u064a\u0648\u0633',
+          '\u0627\u0641\u0631\u0627\u0645')),
+    ]
+    assert parsed == expected

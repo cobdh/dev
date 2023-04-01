@@ -19,6 +19,8 @@ from cobdh.xmlx import clean_id
 from cobdh.xmlx.inter import to_str as xml_tostr
 from cobdh.xmlx.inter import xmlformat as xml_format
 from cobdh.xmlx.parser import parse as xml_parse
+from cobdh.xmlx.persons.data import Name
+from cobdh.xmlx.persons.data import Person
 
 __version__ = '0.1.0'
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

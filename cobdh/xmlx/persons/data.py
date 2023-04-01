@@ -6,7 +6,7 @@
 """
 import dataclasses
 
-import cobdh.xmlx
+import cobdh
 
 
 @dataclasses.dataclass
@@ -19,7 +19,7 @@ class Name:
     def xmlid(self):
         hashed = ' '.join(self.surname) + ' '
         hashed += ' '.join(self.forename)
-        hashed: str = cobdh.xmlx.clean_id(hashed)
+        hashed: str = cobdh.clean_id(hashed)
         return hashed
 
 

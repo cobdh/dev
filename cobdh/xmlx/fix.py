@@ -1,4 +1,3 @@
-import os
 import random
 
 import cobdh
@@ -19,7 +18,7 @@ def xml_ids(src: str, dst: str) -> dict:
         if not improved:
             continue
         fname = cobdh.file_name(path, ext=True)
-        outpath = cobdh.forward_slash(os.path.join(dst, fname))
+        outpath = cobdh.join(dst, fname)
         cobdh.scribe(f'replace: {outpath}\n')
         cobdh.file_replace(outpath, improved)
 

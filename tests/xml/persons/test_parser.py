@@ -1,5 +1,3 @@
-import os
-
 import cobdh
 import cobdh.xmlx.persons.parser
 import tests
@@ -21,8 +19,7 @@ def test_parse():
 
 
 def test_parse_idem():
-    path = os.path.join(tests.TESTS, 'xml/data/idem.xml')
-    assert os.path.exists(path), path
+    path = cobdh.join(tests.TESTS, 'xml/data/idem.xml', exist=True)
     content = cobdh.file_read(path)
     expected = [
         cobdh.Person(names=[
@@ -44,8 +41,7 @@ def test_parse_idem():
 
 
 def test_parse_author_raw():
-    path = os.path.join(tests.TESTS, 'xml/data/bibl/1.xml')
-    assert os.path.exists(path), path
+    path = cobdh.join(tests.TESTS, 'xml/data/bibl/1.xml', exist=True)
     content = cobdh.file_read(path)
     expected = [
         cobdh.Person(names=[
@@ -68,7 +64,7 @@ def test_parse_author_raw():
 
 
 def test_arabic():
-    src = os.path.join(tests.BIBL, '2.xml')
+    src = cobdh.join(tests.BIBL, '2.xml', exist=True)
     content = cobdh.file_read(src)
     parsed = cobdh.xmlx.persons.parser.parse(content)
     expected = [

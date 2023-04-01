@@ -33,7 +33,7 @@ def main():
             cobdh.error(f'could not create: {index}')
             failure += 1
             continue
-        path = os.path.join(root, f'{index}.xml')
+        path = cobdh.join(root, f'{index}.xml')
         cobdh.scribe(f'{index}: {path}')
         cobdh.file_create(
             path,

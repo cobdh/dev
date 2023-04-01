@@ -41,7 +41,7 @@ def create_persons(dst, src, overwrite: bool = False):
 def pathgenerator(collection, dst, overwrite):
     if overwrite:
         for index, value in enumerate(collection, start=1):
-            outpath = os.path.join(dst, f'{index}.xml')
+            outpath = cobdh.join(dst, f'{index}.xml')
             yield value, index, outpath
         return
     parsed = cobdh.xmlx.persons.persons_list(dst)
@@ -61,7 +61,7 @@ def pathgenerator(collection, dst, overwrite):
             continue
         while index in done:
             index += 1
-        outpath = os.path.join(dst, f'{index}.xml')
+        outpath = cobdh.join(dst, f'{index}.xml')
         yield value, index, outpath
         index += 1
 

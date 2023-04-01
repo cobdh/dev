@@ -1,10 +1,8 @@
-import os
-
 import cobdh
 import cobdh.xmlx.fix
 import tests
 
-XML_DATA_BIBL = os.path.join(tests.TESTS, 'xml/data')
+XML_DATA_BIBL = cobdh.join(tests.TESTS, 'xml/data', exist=True)
 
 
 def test_fix_duplicated_xml_id(testdir):

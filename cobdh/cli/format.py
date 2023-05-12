@@ -35,7 +35,7 @@ def main() -> int:
 
 def evalcli():
     parser = argparse.ArgumentParser(
-        prog='cob_xml',
+        prog='cob_format',
         description='Format xml files.',
     )
     parser.add_argument(

@@ -85,16 +85,16 @@ def test_single_short():
 def test_cli_format(testdir):
     xml = testdir.tmpdir.join('abc.xml')
     cobdh.file_create(xml, NAMESPACE)
-    completed = cobdh.utils.run('cob_xml .')
+    completed = cobdh.utils.run('cob_format .')
     # already well formatted
     assert 'skip: abc.xml' in completed.stdout
     # create bad formatted file
     cobdh.file_replace(xml, NAMESPACE.replace('   ', ''))
-    completed = cobdh.utils.run('cob_xml .')
+    completed = cobdh.utils.run('cob_format .')
     # already well formatted
     assert 'format: abc.xml' in completed.stdout
     # format well formatted file, nothing todo
-    completed = cobdh.utils.run('cob_xml .')
+    completed = cobdh.utils.run('cob_format .')
     assert 'skip: abc.xml' in completed.stdout
 
 

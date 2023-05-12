@@ -30,10 +30,10 @@ setuptools.setup(
         'console_scripts': [
             'cob_bibl = cobdh.cli.bibl:main',
             'cob_enrich = cobdh.cli.enrich:main',
+            'cob_format = cobdh.cli.format:main',
             'cob_persons = cobdh.cli.persons:main',
             'cob_split = cobdh.cli.split:main',
             'cob_validate = cobdh.cli.validate:main',
-            'cob_xml = cobdh.cli.format:main',
         ],
     },
 )

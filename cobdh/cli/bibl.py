@@ -14,7 +14,7 @@ def main():
         dst=src,
     )
     # format it
-    cobdh.run('cob_xml --ext xml .')
+    cobdh.run('cob_format --ext xml .')
     return cobdh.SUCCESS
 
 

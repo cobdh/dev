@@ -24,6 +24,7 @@ setuptools.setup(
         'cobdh.cli',
         'cobdh.xmlx',
         'cobdh.xmlx.persons',
+        'cobdh.xmlx.validate',
     ],
     entry_points={
         'console_scripts': [
@@ -31,6 +32,7 @@ setuptools.setup(
             'cob_enrich = cobdh.cli.enrich:main',
             'cob_persons = cobdh.cli.persons:main',
             'cob_split = cobdh.cli.split:main',
+            'cob_validate = cobdh.cli.validate:main',
             'cob_xml = cobdh.cli.format:main',
         ],
     },

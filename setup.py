@@ -34,6 +34,7 @@ setuptools.setup(
             'cob_persons = cobdh.cli.persons:main',
             'cob_split = cobdh.cli.split:main',
             'cob_validate = cobdh.cli.validate:main',
+            'cob_crawl = cobdh.crawl:main',
         ],
     },
 )

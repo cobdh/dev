@@ -48,10 +48,7 @@ def to_str(parsed, header: bool = False):
 
 def flat(source: str) -> str:
     try:
-        parsed = ET.fromstring(
-            source,
-            parser=cobdh.xmlx.parser.parser_create(),
-        )
+        parsed = cobdh.xmlx.parser.parse(source)
     except ET.ParseError as error:
         raise ValueError(f'invalid xml: {error}\n "{source}"') from error
     ET.indent(parsed, space='')

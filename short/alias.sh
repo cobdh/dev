@@ -1,7 +1,7 @@
 cd $COBDH
 
 alias fapp="cd ${COBDH}/app"
-alias fdat="cd ${COBDH}/data"
+alias fdat="cd ${COBDH}/collection"
 alias fdev="cd ${COBDH}/dev"
 alias fndb="cd ${COBDH}/nano_db"
 alias fnpu="cd ${COBDH}/nano_pub"

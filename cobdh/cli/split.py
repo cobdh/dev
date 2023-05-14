@@ -29,8 +29,9 @@ def main():
         value = cobdh.xmlx.inter.to_str(value)
         try:
             formatted = cobdh.xmlx.inter.xmlformat(value)
-        except ValueError:
+        except ValueError as error:
             cobdh.error(f'could not create: {index}')
+            cobdh.error(str(error))
             failure += 1
             continue
         path = cobdh.join(root, f'{index}.xml')

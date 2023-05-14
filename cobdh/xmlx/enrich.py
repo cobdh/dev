@@ -75,6 +75,11 @@ TEMPLATE = """\
         <fileDesc>
             <titleStmt>
                 <editor
+                    xml:id="horn_cornelia"
+                    ref="https://cobdh.org/editors/horn_cornelia"
+                    role="general"
+                />
+                <editor
                     xml:id="schewe_helmut_konrad"
                     ref="https://cobdh.org/editors/schewe_helmut_konrad"
                     role="creator"

@@ -38,6 +38,7 @@ def to_str(parsed, header: bool = False):
         xml_declaration='utf8',
         method='cobdh',
     )
+    formatted = cobdh.xmlx.parser.fix_ampersand(formatted)
     if not header:
         result = formatted
     else:

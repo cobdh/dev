@@ -138,10 +138,41 @@ def cleanup_id(node):
 
 
 def nextid(current: str, done: set):
-    new = current + '_' + str(random.randint(1, 99))  # nosec
-    if new in done:
-        return nextid(new, done)
-    return new
+    """Append a single char to create a unqiue xml id.
+
+    After number start with A. If A is already used use B and so on.
+
+    >>> nextid('MisterX1923', {})
+    'MisterX1923'
+    >>> nextid('MisterX1923', {'MisterX1923', 'MisterX1923A'})
+    'MisterX1923B'
+    """
+    if current not in done:
+        return current
+    char = nextchar(current[-1])
+    while current + char in done:
+        char = nextchar(char)
+    return current + char
+
+
+def nextchar(item) -> str:
+    """\
+    >>> nextchar('A')
+    'B'
+    >>> nextchar('5')
+    'A'
+    >>> nextchar('Z')
+    'A'
+    >>> nextchar(nextchar('Z'))
+    'B'
+    """
+    item = item.upper()
+    if item in '0123456789':
+        return 'A'
+    next = ord(item) + 1
+    if next == 91:  # XYZ[
+        return 'A'
+    return chr(next)
 
 
 def parse(content: str):

@@ -13,7 +13,7 @@ def clean_id(xml: str):
     >>> clean_id('Ter-Girgorian ABC')
     'TerGirgorianABC'
     """
-    for char in '.-:,;? ':
+    for char in '._-:,;? ':
         xml = xml.replace(char, '')
     xml = cobdh.str.replace(xml)
     return xml

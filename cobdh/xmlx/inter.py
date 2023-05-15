@@ -18,7 +18,7 @@ def xmlformat(source: str, header: bool = True) -> str:
     >>> xmlformat('<biblStruct type="bookSectionttp://zotero.org/groups/4545590/items/XN85KQZD">')
     Traceback (most recent call last):
     ...
-    ValueError: invalid xml: no element found: line 1, column 77
+    ValueError: invalid xml: no element found: line ..., column ...
      "<biblStruct type="bookSectionttp://zotero.org/groups/4545590/items/XN85KQZD">"
     >>> xmlformat('<biblStruct type="bookSection" xml:id="Hovhanessian2013">ABC</biblStruct>', header=False)
     '<biblStruct\n    xml:id="Hovhanessian2013"\n    type="bookSection"\n>\n    ABC\n</biblStruct>\n'

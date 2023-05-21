@@ -7,7 +7,7 @@ NS = {
     'tei': 'http://www.tei-c.org/ns/1.0',
 }
 
-INVALID = '._-:,;? '
+INVALID = '._-:,;? ()[]{}'
 
 
 def clean_id(xml: str):

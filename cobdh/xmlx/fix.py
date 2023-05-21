@@ -1,5 +1,3 @@
-import random
-
 import cobdh
 import cobdh.xmlx
 import cobdh.xmlx.inter
@@ -169,10 +167,10 @@ def nextchar(item) -> str:
     item = item.upper()
     if item in '0123456789':
         return 'A'
-    next = ord(item) + 1
-    if next == 91:  # XYZ[
+    new = ord(item) + 1
+    if new == 91:  # XYZ[
         return 'A'
-    return chr(next)
+    return chr(new)
 
 
 def parse(content: str):

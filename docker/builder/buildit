@@ -1,9 +1,24 @@
 #!/bin/sh
+
+# MINIMAL:1     => copy minimal test data set
+# MINIMAL:0     => do not copy any test data
+# LIVE:1        => build production env
+# LIVE:0        => build dev env
+
 cd /var/workdir
 
 cp -r /var/src/* /var/workdir
 
+echo "version: ${VERSION}"
 sed -i "s/XXX/${VERSION}/" expath-pkg.xml >> expath-pkg.xml
+
+if [ $LIVE -eq 0 ]
+then
+    echo "build testing env"
+    sed -i "s/<live>true<\/live>/<live>false<\/live>/" repo.xml >> repo.xml
+else
+    echo "build production env"
+fi
 
 if [ $MINIMAL -eq 1 ]
 then

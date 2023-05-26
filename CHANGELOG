@@ -1,6 +1,27 @@
 CHANGELOG
 =========
 
+## v0.3.0 (2023-05-26)
+
+### Feature
+
+* add LIVE flag to build live env (19528da7431d)
+* extend invalid chars (6f7962855f00)
+* make new xml ids more beautiful (7d6433a145f8)
+* add separate bibl validator (c44437b650c5)
+* add horn cornelia as general editor (3a209b054608)
+* extend error logging (5a4006363742)
+
+### Fix
+
+* remove underscore while xml id cleaning (c87eb1846773)
+* handle ampersand correctly (e323a1377653)
+
+### Chore
+
+* add live shortcut (3fea301be805)
+* rename data shortcut (f210559e3970)
+
 ## v0.2.0 (2023-05-13)
 
 ### Feature

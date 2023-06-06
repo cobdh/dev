@@ -1,0 +1,96 @@
+[MASTER]
+# Add files or directories to the blacklist. They should be base names, not
+# paths.
+ignore=conf.py,
+
+# Add files or directories matching the regex patterns to the blacklist. The
+# regex matches against base names, not paths.
+
+# Ignore standard python library
+ignore-patterns=Lib
+
+disable=C0111,
+    C0114,
+    C0116,
+    C0209,
+    C0301,
+    C0415,
+    C3001,
+    E1121,
+    R0401,
+    R0901,
+    R0903,
+    R0912,
+    W0149,
+    W0160,
+    W0511,
+    W0603,
+
+# Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
+# number of processors available to use.
+jobs=4
+
+load-plugins=pylint.extensions.bad_builtin,
+             pylint.extensions.check_elif,
+             pylint.extensions.comparetozero,
+             pylint.extensions.comparison_placement,
+             pylint.extensions.confusing_elif,
+             pylint.extensions.consider_ternary_expression,
+             pylint.extensions.docparams,
+             pylint.extensions.docparams,
+             pylint.extensions.docstyle,
+             pylint.extensions.docstyle,
+             pylint.extensions.empty_comment,
+             pylint.extensions.emptystring,
+             pylint.extensions.eq_without_hash,
+             pylint.extensions.for_any_all,
+             pylint.extensions.mccabe,
+             pylint.extensions.no_self_use,
+             pylint.extensions.overlapping_exceptions,
+             pylint.extensions.private_import,
+             pylint.extensions.redefined_variable_type,
+             pylint.extensions.set_membership,
+             pylint.extensions.typing,
+             pylint.extensions.while_used,
+
+# pylint.extensions.broad_try_clause,
+# pylint.extensions.code_style,
+# pylint.extensions.redefined_loop_name,
+[BASIC]
+# Good variable names which should always be accepted, separated by a comma.
+good-names=fp,
+           _,
+           __,
+           ___,
+           ____,
+
+exclude-protected = __version,
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=85
+# Maximum number of arguments for function / method.
+max-args=10
+# Allow the body of a class to be on the same line as the declaration if body
+# contains single statement.
+single-line-class-stmt=no
+# Allow the body of an if to be on the same line as the test if there is no
+# else.
+single-line-if-stmt=no
+
+[MISCELLANEOUS]
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,
+      XXX,
+      TODO,
+      HACK
+
+[SPELLING]
+# Limits count of emitted suggestions for spelling mistakes.
+max-spelling-suggestions=8
+# List of comma separated words that should not be checked.
+spelling-ignore-words=
+# Tells whether to store unknown words to indicated private dictionary in
+# --spelling-private-dict-file option instead of raising a message.
+spelling-store-unknown-words=no
+ignored-argument-names=testdir

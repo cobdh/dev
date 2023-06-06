@@ -105,7 +105,7 @@ def parse_person(author, use_ns: bool = False) -> 'cobdh.Person':
                     lang=lang,
                 ))
             return person
-        person.names.append(cobdh.Name(surname=(author.text.strip())))
+        person.names.append(cobdh.Name(surname=[author.text.strip()]))
     person.names.append(
         cobdh.Name(
             surname=surname,

@@ -172,3 +172,20 @@ XSL = """\
 def test_format_xsl():
     formatted = cobdh.xmlx.inter.xmlformat(XSL)
     assert formatted == XSL, formatted
+
+
+AMPERSAND = """\
+<p>&gt;&gt; hello</p>
+"""
+AMPERSAND_EXPECTED = """\
+<p>>> hello</p>
+"""
+
+
+def test_format_ampersand():
+    formatted = cobdh.xmlx.inter.xmlformat(
+        AMPERSAND,
+        header=False,
+    )
+    # TODO: MAY CHANGE THIS BEHAVIOR LATER
+    assert formatted == AMPERSAND_EXPECTED

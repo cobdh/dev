@@ -20,6 +20,10 @@ def parser_create():
     return parser
 
 
+SIGNS = '|'.join(r'amp nbsp lt gt #\d{1,4} [a-z]{2,8}'.split())
+PATTERN = re.compile('&(?!' + SIGNS + ';)')
+
+
 def fix_ampersand(text: str) -> str:
     """\
     >>> fix_ampersand('<title level="j">Scripta & e-Scripta</title>')
@@ -30,7 +34,8 @@ def fix_ampersand(text: str) -> str:
     '&amp;&amp;&amp;&amp;'
     >>> fix_ampersand('&&amp;')
     '&amp;&amp;'
+    >>> fix_ampersand('<p>&gt;&gt; hello &#171;  &#037;</p>')
+    '<p>&gt;&gt; hello &#171;  &#037;</p>'
     """
-    # TODO: DO NOT COPY INSIDE <>
-    text = re.sub('&(?!amp;)', '&amp;', text)
+    text = PATTERN.sub('&amp;', text)
     return text

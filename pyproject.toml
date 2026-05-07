@@ -1,0 +1,69 @@
+[project]
+name = "cobdh"
+version = "0.3.0"
+description = ""
+readme = {file = "README", content-type = "text/markdown"}
+requires-python = ">=3.12"
+authors = [
+  {name = "Helmut Konrad Schewe", email = "helmutus@outlook.com"}
+]
+
+dependencies = [
+]
+
+# Optional but recommended metadata
+keywords = []
+classifiers = [
+  'Programming Language :: Python :: 3.12',
+  'Programming Language :: Python :: 3.13',
+  'Programming Language :: Python :: 3.14',
+]
+
+[project.optional-dependencies]
+dev = [
+    "baw==1.79.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/cobdh/dev"
+Repository = "https://github.com/cobdh/dev"
+
+[build-system]
+requires = [
+    "setuptools>=82.0.1",
+    "wheel>=0.46.3"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+[tool.semantic_release.changelog.default_templates]
+changelog_file = "CHANGELOG"
+[tool.semantic_release.changelog]
+mode = "init"
+output_format = "md"
+[tool.semantic_release.commit_parser_options]
+# allways generate a new version
+patch_tags = ["fix", "perf", "build", "chore", "ci", "docs", "style", "refactor", "test", "deps"]
+
+[project.scripts]
+    cob_bibl = "cobdh.cli.bibl:main"
+    cob_enrich = "cobdh.cli.enrich:main"
+    cob_format = "cobdh.cli.format:main"
+    cob_persons = "cobdh.cli.persons:main"
+    cob_split = "cobdh.cli.split:main"
+    cob_validate = "cobdh.cli.validate:main"
+    cob_crawl = "cobdh.crawl:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    'cobdh',
+    'cobdh.cli',
+    'cobdh.xmlx',
+    'cobdh.xmlx.persons',
+    'cobdh.xmlx.validate',
+]
+exclude = [
+    "tests/*",
+]

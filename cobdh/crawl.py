@@ -7,8 +7,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-import werkzeug.urls
-
 import cobdh
 
 # front end
@@ -32,7 +30,7 @@ def urls(root: str = BASE, deep: int = 5) -> list:
     for hyperhyper in HREF.findall(content):
         if hyperhyper == '/':
             continue
-        hyperhyper = werkzeug.urls.url_fix(hyperhyper)
+        hyperhyper = url_fix(hyperhyper)
         hyperhyper = abspath(root, hyperhyper)
         if hyperhyper in result:
             result[hyperhyper].add(root.rstrip('/'))
@@ -44,6 +42,14 @@ def urls(root: str = BASE, deep: int = 5) -> list:
         )
         for key, value in children.items():
             result[key] |= value
+    return result
+
+
+def url_fix(s):
+    """Fixes URLs by quoting unsafe characters in the path."""
+    scheme, netloc, path, query, fragment = urllib.parse.urlsplit(s)
+    path = urllib.parse.quote(urllib.parse.unquote(path))
+    result = urllib.parse.urlunsplit((scheme, netloc, path, query, fragment))
     return result
 
 
@@ -63,7 +69,7 @@ def abspath(root, hyper):
 
 @functools.lru_cache(maxsize=2048)
 def curl(path: str):
-    url = werkzeug.urls.url_fix(path)
+    url = url_fix(path)
     with urllib.request.urlopen(url) as response:  # nosec
         html = response.read()
     html: str = html.decode('utf8')

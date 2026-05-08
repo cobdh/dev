@@ -1,6 +1,6 @@
 FROM frekele/ant
 
-MAINTAINER Helmut Konrad Schewe <helmutus@outlook.com>
+LABEL maintainer="Helmut Konrad Schewe<helmutus@outlook.com>"
 
 ENV PACKAGE=NO_PACKAGE
 ENV VERSION=NO_VERSION

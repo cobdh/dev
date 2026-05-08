@@ -1,3 +1,4 @@
+import importlib.metadata
 import os
 
 from cobdh.str import alphabetically
@@ -24,5 +25,6 @@ from cobdh.xmlx.parser import parse as xml_parse
 from cobdh.xmlx.persons.data import Name
 from cobdh.xmlx.persons.data import Person
 
-__version__ = '0.1.0'
+__version__ = importlib.metadata.version('cobhd')
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

@@ -1,8 +1,0 @@
-#!/bin/sh
-CURRENT=$(git describe --tags)
-TAG="cobdh/builder:${CURRENT}"
-
-echo "git:   ${CURRENT}"
-echo "tag:   ${TAG}"
-
-docker build -f DOCKERFILE -t ${TAG} .

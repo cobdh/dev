@@ -9,8 +9,10 @@ import urllib.request
 
 import cobdh
 
+# TODO: VERIFY DEFAULT VALUE
 # front end
-BASE = os.environ['SERVER_TEST'].rstrip('/')
+BASE = os.environ.get('SERVER_TEST', 'http://view/exist/apps/cobdh/')
+BASE = BASE.rstrip('/')
 
 # TODO: IMPROVE VIA GOOGLE
 HREF = re.compile(r'a[ ]{1,4}href[ ]{0,4}=[ ]{0,4}[\"\'](.+?)[\"\']')

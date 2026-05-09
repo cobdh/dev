@@ -1,123 +1,534 @@
-CHANGELOG
-=========
+# CHANGELOG
 
-## v0.3.0 (2023-05-26)
 
-### Feature
+## v1.0.0 (2026-05-09)
 
-* add LIVE flag to build live env (19528da7431d)
-* extend invalid chars (6f7962855f00)
-* make new xml ids more beautiful (7d6433a145f8)
-* add separate bibl validator (c44437b650c5)
-* add horn cornelia as general editor (3a209b054608)
-* extend error logging (5a4006363742)
+### Bug Fixes
 
-### Fix
+- **alias**: Make alias compatible with other
+  ([`d345ba0`](https://github.com/cobdh/dev/commit/d345ba0ad662988400539124e35256687d688a49))
 
-* remove underscore while xml id cleaning (c87eb1846773)
-* handle ampersand correctly (e323a1377653)
+- **crawl**: Ensure that base is setted
+  ([`d3a24bc`](https://github.com/cobdh/dev/commit/d3a24bc9906b3d7a7e9cda99e926a40484ce6438))
 
-### Chore
+- **crawl**: Replace outdated method
+  ([`88ad84e`](https://github.com/cobdh/dev/commit/88ad84e6129f0c346364cdf07e37bac1ec4b7fe1))
 
-* add live shortcut (3fea301be805)
-* rename data shortcut (f210559e3970)
+- **person**: Fix after linter run
+  ([`87dc68c`](https://github.com/cobdh/dev/commit/87dc68c3f0040af6c01d35f1d145d6cc69459feb))
 
-## v0.2.0 (2023-05-13)
+### Chores
 
-### Feature
+- **builder**: Use Makefile instead
+  ([`efd058f`](https://github.com/cobdh/dev/commit/efd058fc152dc5d3d0fd741599576dc0dfea685e))
 
-* add cli to crawl url (612e50b2ee5a)
-* add cli to validate persons and bibl database (1a4b37153322)
-* add method to join path (898305d65d26)
-* add method to ensure data type (41e96c08f2fd)
-* use complex person data structure (dc5c33db2512)
-* extend public API (53efced06b60)
-* extend public API (f9162afc4230)
-* add data class to store person information (4b7067149275)
-* add method to log error (29d2cb4406fd)
-* use safe log (a38976c5cd90)
-* add method to safely log str (7db4c8f72dcd)
-* add method to escape invalid characters (8d09ea978556)
-* parse multiple persName inside author tags (3d768c682cf9)
-* do not overwrite already generated persons (b62dafe32b06)
-* use generator to determine outpath (36daada11dee)
-* add parser to determine person xml ids (57733867d5af)
-* add flag to overwrite person database (0d36b75ed787)
-* split simple authors by forename and name (197b2426cdd7)
-* strip simple authors (99bc298ceb81)
-* add method to create a new xml id (96f663fc001f)
-* add cli to parse complete portal (17ce155c5a1b)
-* add xml formatter (3d93c90cabb0)
-* cleanup bibl id (aadbd1fa3579)
-* add bibl cli to fix up xml ids (2ec7f88038a7)
-* add method to make xml-id unique (ccf71cde60aa)
-* add option to build minimal test data set (38b0e7416111)
-* include editors to person link (62b626e5dd4a)
-* sort file list by name (37ea64105f34)
-* add link to persons collection (374765a9fbae)
-* use simple author if not complex author is given (0288ad7cb554)
-* add author xml id if not given (f9c5a287824f)
-* log failed execution (ab41bca38569)
-* add method to convert xml to str (d860e3cd795f)
-* add xml parser (8f8bfb1069f6)
-* use improved person hasher (339fc98c193a)
-* add nameLink if required (95a3883b8d6f)
-* split surname if required (8edc48f42f26)
-* clean persons id (2551519b4582)
-* add method to replace special chars (4e5ae881ba8e)
-* add method to improve forenames (a020c934330f)
-* add cli to generate persons (19752ebfd742)
-* add method to convert person to xml (febbd056eb1a)
-* add person parser (b09735a96af4)
-* add method to sort files by file name (997e207e421f)
-* extend public API (7e9341634382)
-* add parameter to select file type (82f35c3eb7a3)
-* verify shell result (f71bbb4a4c77)
-* add cli to inject TEI header (36bd8a759b80)
-* add option to format different files (d0775290d683)
-* make xml more compact (cc65ffc88c9d)
-* add cli to split xml-TEI files (702cdaf6480e)
-* normalize white spaces (b3f1ec51db0c)
-* add newline constant (938840e1fa90)
-* add method to list files (cb5b28254889)
-* add method to run shell cmd (b89ca6748fa4)
-* add method to create file (f112592f93c2)
-* add method to split xml file (f76cc424bcbb)
-* add cli to format files (03b70ba32088)
-* make xml more compact (54454c7f9f87)
-* add method to read and write files (684f9543a8c2)
-* add method to format xml (d67164a23a98)
-* add cobdh dev application (96bc5d99080b)
-* add proxy shortcut (7dd7f4846b55)
-* log generated packages (bd8584e42329)
-* automate version replacement (62d4382381ee)
-* add docker file (8010594027c2)
+- **docker**: Add docker ignore
+  ([`0c8a648`](https://github.com/cobdh/dev/commit/0c8a6485dda28d4f56aed1e9bd408150f96a61bc))
 
-### Fix
+- **docker**: Adjust docker maintainer label
+  ([`663fad5`](https://github.com/cobdh/dev/commit/663fad511f790630fe4263db171d555e8af153fa))
 
-* do not fail if xml:id is not present (4cf68848cbb1)
-* extend list of invalid xml:id chars (0bea6d6d3950)
-* add special person definition (130bbc4629f6)
-* rename package to avoid naming conflicts (f58a0f7ce60c)
-* solve naming conflict (2ad66bec4c50)
-* do not forget editors (86a121d6c185)
-* select namespace correctly (c80be0df21ad)
-* do not fail on single error (80de19e033f8)
-* format xsl file correctly (38ee4d4ae554)
-* format multiple namespaces (3b9db388f250)
-* parse namespace to avoid ns0 problem (328b77b1ea3b)
+- **docker**: Rename file
+  ([`510c91c`](https://github.com/cobdh/dev/commit/510c91c69281ef569f52e500d9db748ff316fff9))
+
+- **github**: Add .github
+  ([`d3cd1e6`](https://github.com/cobdh/dev/commit/d3cd1e63169c161388ba48d53b2556c68056844c))
+
+- **make**: Add Dockerfile
+  ([`d18c18a`](https://github.com/cobdh/dev/commit/d18c18ac1e41b0850183222a8fa0a3efa11cf5bd))
+
+- **make**: Adjust python builder docker image name
+  ([`419c29d`](https://github.com/cobdh/dev/commit/419c29dc567d6fc693b3a2a3bc01ce4b8f02083b))
+
+- **project**: Add dynamic version
+  ([`b86bd37`](https://github.com/cobdh/dev/commit/b86bd37d0567d08ee47dbf0ffb4ff8959db6fe90))
+
+- **pylint**: Add linter file
+  ([`fe46597`](https://github.com/cobdh/dev/commit/fe46597fc75bf5176b358b25d31bdf9a93b30901))
+
+- **pyproject**: Remove outdated env
+  ([`137988c`](https://github.com/cobdh/dev/commit/137988c870bcc65038164039fb8028ec62155245))
+
+- **pyproject**: Use modern approach
+  ([`b555987`](https://github.com/cobdh/dev/commit/b555987947605e8f616fb9ca611ceaf2dd3a70bc))
+
+- **release**: Adjust repository
+  ([`63c37ce`](https://github.com/cobdh/dev/commit/63c37ce5385e3e73073d1af42af472e059de9112))
+
+- **requirements**: Add missing requirements
+  ([`88f43b2`](https://github.com/cobdh/dev/commit/88f43b2412c32b78782aef846c69ecf28a460575))
+
+- **requirements**: Remove outdated file
+  ([`5e87f70`](https://github.com/cobdh/dev/commit/5e87f7054500a7481f16423ea34883ce6b44ce95))
+
+- **version**: Remove unused version file
+  ([`785fe31`](https://github.com/cobdh/dev/commit/785fe315c461c38cb66b0f064f3a727f898517f5))
+
+- **workflow**: Enable pylint
+  ([`11e3efc`](https://github.com/cobdh/dev/commit/11e3efc66183ac3f744a0dffe9d163bd7d3f13fd))
 
 ### Documentation
 
-* add simple introduction (cb26d3c793dc)
-* add some TEI documents (9e8ec544d3f9)
+- **remvove**: Remove pdf documentation
+  ([`5a8b03c`](https://github.com/cobdh/dev/commit/5a8b03c26ed5d847815dde35e397efa93983dc4d))
 
-### Chore
+### Features
 
-* add some shortcuts (651255f23674)
+- **parser**: Do not replace & inside ><
+  ([`6d513c7`](https://github.com/cobdh/dev/commit/6d513c76d3adadc1c6ac1d193a0cf0a5e30509ab))
+
+- **shortcut**: Add shared resources shortcut
+  ([`d9975e0`](https://github.com/cobdh/dev/commit/d9975e09af3479ce7c9dfa534604919290420f97))
+
+### Testing
+
+- **fix**: Remove debug code
+  ([`8b50d19`](https://github.com/cobdh/dev/commit/8b50d19e8f20bf8a82c33920f8c26e59fdf2b2b1))
+
+
+## v0.3.0 (2023-06-02)
+
+### Bug Fixes
+
+- **cleaner**: Remove underscore while xml id cleaning
+  ([`c87eb18`](https://github.com/cobdh/dev/commit/c87eb184677359508aee5571b52bbb0b0b5b877d))
+
+- **parser**: Handle ampersand correctly
+  ([`e323a13`](https://github.com/cobdh/dev/commit/e323a137765335a95c77edd5337e834ce8474a39))
+
+### Chores
+
+- **alias**: Add live shortcut
+  ([`3fea301`](https://github.com/cobdh/dev/commit/3fea301be80558065363aa2bf13be74625eb4086))
+
+- **alias**: Rename data shortcut
+  ([`f210559`](https://github.com/cobdh/dev/commit/f210559e3970c8cbd5a0458777ec0af431c4b572))
+
+### Features
+
+- **builder**: Add LIVE flag to build live env
+  ([`19528da`](https://github.com/cobdh/dev/commit/19528da7431d9841401d3e0680acaaa38691b1a0))
+
+- **enrich**: Add horn cornelia as general editor
+  ([`3a209b0`](https://github.com/cobdh/dev/commit/3a209b054608442449bfc776e818b9af375fdfbe))
+
+- **fix**: Make new xml ids more beautiful
+  ([`7d6433a`](https://github.com/cobdh/dev/commit/7d6433a145f81046fd0b137367bc1789120c8b1f))
+
+- **split**: Extend error logging
+  ([`5a40063`](https://github.com/cobdh/dev/commit/5a400636374222a4ae6052bec703fcb3e36b0cc9))
+
+- **validate**: Add separate bibl validator
+  ([`c44437b`](https://github.com/cobdh/dev/commit/c44437b650c55df8e9be4bb5f10e618c6965edc0))
+
+- **xml**: Extend invalid chars
+  ([`6f79628`](https://github.com/cobdh/dev/commit/6f7962855f00313b014e1079f2e0535a09040307))
+
+### Refactoring
+
+- **fix**: Fix linter warnings
+  ([`c016b22`](https://github.com/cobdh/dev/commit/c016b2291a46841d6478f1522d3711f6a198d16b))
+
+- **inter**: Reduce code duplication
+  ([`c9bc218`](https://github.com/cobdh/dev/commit/c9bc218026e63d4d21260cdd0dd165ab357f8877))
+
+- **xml**: Improve code style
+  ([`5c6e880`](https://github.com/cobdh/dev/commit/5c6e880ea46287bdcac7c473e3593383f6a45964))
+
+### Testing
+
+- **fix**: Make test more robust
+  ([`4f8fc25`](https://github.com/cobdh/dev/commit/4f8fc25f137fe8db2c1677c41f08fc7be986f4eb))
+
+
+## v0.2.0 (2023-05-13)
+
+### Bug Fixes
+
+- **fix**: Do not fail if xml:id is not present
+  ([`4cf6884`](https://github.com/cobdh/dev/commit/4cf68848cbb1efcff0cbcbfea6076a5ce8d6734c))
+
+- **persons**: Add special person definition
+  ([`130bbc4`](https://github.com/cobdh/dev/commit/130bbc4629f66bb3341f3e2649886f015796e49f))
+
+- **persons**: Do not forget editors
+  ([`86a121d`](https://github.com/cobdh/dev/commit/86a121d6c18555d3c418722a28b3acd68e884643))
+
+- **persons**: Select namespace correctly
+  ([`c80be0d`](https://github.com/cobdh/dev/commit/c80be0df21ad68262fea6010140025b28a90eb5a))
+
+- **rename**: Rename package to avoid naming conflicts
+  ([`f58a0f7`](https://github.com/cobdh/dev/commit/f58a0f7ce60cc02876b41f5b52897d678e23176a))
+
+- **rename**: Solve naming conflict
+  ([`2ad66be`](https://github.com/cobdh/dev/commit/2ad66bec4c5000b11b1bc36db81c6f62906c495d))
+
+- **split**: Do not fail on single error
+  ([`80de19e`](https://github.com/cobdh/dev/commit/80de19e033f82914408b72af7d61ad3f5e2c2603))
+
+- **xml**: Extend list of invalid xml:id chars
+  ([`0bea6d6`](https://github.com/cobdh/dev/commit/0bea6d6d3950948de21813102221df0e85c6a124))
+
+- **xml**: Format multiple namespaces
+  ([`3b9db38`](https://github.com/cobdh/dev/commit/3b9db388f2503b77db81abe5c9bb04b12c16c843))
+
+- **xml**: Parse namespace to avoid ns0 problem
+  ([`328b77b`](https://github.com/cobdh/dev/commit/328b77b1ea3b55a56bb1866e819c35599f3e437e))
+
+- **xsl**: Format xsl file correctly
+  ([`38ee4d4`](https://github.com/cobdh/dev/commit/38ee4d4ae554be81741ec477bed69212d546c789))
+
+### Chores
+
+- **alias**: Add some shortcuts
+  ([`651255f`](https://github.com/cobdh/dev/commit/651255f2367404b1fa4e8996f2a79ecf879693e3))
+
+### Code Style
+
+- **format**: Format code
+  ([`a933f49`](https://github.com/cobdh/dev/commit/a933f4901715b6c70a09227bbad99b3e49bb4618))
+
+- **imports**: Organize imports
+  ([`0ae20a7`](https://github.com/cobdh/dev/commit/0ae20a7404c1bb18a074357a86976700d31e15fa))
+
+### Documentation
+
+- **TEI**: Add simple introduction
+  ([`cb26d3c`](https://github.com/cobdh/dev/commit/cb26d3c793dc22f8285520603430cff87a5ec2a1))
+
+- **TEI**: Add some TEI documents
+  ([`9e8ec54`](https://github.com/cobdh/dev/commit/9e8ec544d3f9fe5feb762b0d17aa695f775bce1f))
+
+### Features
+
+- **alias**: Add proxy shortcut
+  ([`7dd7f48`](https://github.com/cobdh/dev/commit/7dd7f4846b55d5a86fedc44cdeb0315d324b88ef))
+
+- **API**: Add method to convert xml to str
+  ([`d860e3c`](https://github.com/cobdh/dev/commit/d860e3cd795f6bc96d3c18ec5c4b779cbbc05f2b))
+
+- **API**: Add xml formatter
+  ([`3d93c90`](https://github.com/cobdh/dev/commit/3d93c90cabb0dc23495f3c9dcf41f4d39d793d22))
+
+- **API**: Add xml parser
+  ([`8f8bfb1`](https://github.com/cobdh/dev/commit/8f8bfb1069f64ea1bd41ccf405aa4e9063b0035b))
+
+- **API**: Extend public API
+  ([`53efced`](https://github.com/cobdh/dev/commit/53efced06b6035da7342751f1064f7816f3585a9))
+
+- **API**: Extend public API
+  ([`f9162af`](https://github.com/cobdh/dev/commit/f9162afc42309ebf4a2f9f05f4b83b7bc8913e9c))
+
+- **app**: Add cobdh dev application
+  ([`96bc5d9`](https://github.com/cobdh/dev/commit/96bc5d99080bf35cb95c33e77f352eddc8cabd9d))
+
+- **build**: Add docker file
+  ([`8010594`](https://github.com/cobdh/dev/commit/8010594027c2fda32d72fac25cd66a26f4e931ad))
+
+- **build**: Add option to build minimal test data set
+  ([`38b0e74`](https://github.com/cobdh/dev/commit/38b0e7416111b94ead9729bfa255822d8a700414))
+
+- **build**: Automate version replacement
+  ([`62d4382`](https://github.com/cobdh/dev/commit/62d4382381eebbe5c54047e92bb62a39a91c4bf2))
+
+- **builder**: Log generated packages
+  ([`bd8584e`](https://github.com/cobdh/dev/commit/bd8584e42329872b6aa2e4f002dbc805b34f4d14))
+
+- **cli**: Add bibl cli to fix up xml ids
+  ([`2ec7f88`](https://github.com/cobdh/dev/commit/2ec7f88038a75a4c9d365cb06c6c24ada2df5dc4))
+
+- **cli**: Add cli to generate persons
+  ([`19752eb`](https://github.com/cobdh/dev/commit/19752ebfd742e97ff53725f567c7a49ba33b4323))
+
+- **cli**: Add cli to validate persons and bibl database
+  ([`1a4b371`](https://github.com/cobdh/dev/commit/1a4b37153322e12a2c51ac04a5239653fcdc2670))
+
+- **cobdh**: Extend public API
+  ([`7e93416`](https://github.com/cobdh/dev/commit/7e934163438234d447dcccd3d6f0d4eb8e971fc7))
+
+- **crawl**: Add cli to parse complete portal
+  ([`17ce155`](https://github.com/cobdh/dev/commit/17ce155c5a1b6c9be6535efd0aab60152030f788))
+
+- **enrich**: Add author xml id if not given
+  ([`f9c5a28`](https://github.com/cobdh/dev/commit/f9c5a287824f379f2c95bf294dc71dfc03741f57))
+
+- **enrich**: Add cli to inject TEI header
+  ([`36bd8a7`](https://github.com/cobdh/dev/commit/36bd8a759b806ab5c4955e43e0358511ced60004))
+
+- **enrich**: Add link to persons collection
+  ([`374765a`](https://github.com/cobdh/dev/commit/374765a9fbae21c4be5cea875a64b04382c3c1f8))
+
+- **enrich**: Include editors to person link
+  ([`62b626e`](https://github.com/cobdh/dev/commit/62b626e5dd4ac00bf449c8718732313a217d7684))
+
+- **fix**: Add method to create a new xml id
+  ([`96f663f`](https://github.com/cobdh/dev/commit/96f663fc001f71725b23e933413990a92a795991))
+
+- **fix**: Add method to make xml-id unique
+  ([`ccf71cd`](https://github.com/cobdh/dev/commit/ccf71cde60aa7eac86f58b890d0ec5628f089746))
+
+- **fix**: Cleanup bibl id
+  ([`aadbd1f`](https://github.com/cobdh/dev/commit/aadbd1fa357929cf50bf3a1141221bc32b5b3a54))
+
+- **log**: Use safe log
+  ([`a38976c`](https://github.com/cobdh/dev/commit/a38976c5cd90661e6d2eb759a60c5c762d9cd7f6))
+
+- **parser**: Use complex person data structure
+  ([`dc5c33d`](https://github.com/cobdh/dev/commit/dc5c33db25125882e258b2723a13d2b943e2d4c3))
+
+- **persons**: Add data class to store person information
+  ([`4b70671`](https://github.com/cobdh/dev/commit/4b706714927536a56590694740b09f3637d0c74b))
+
+- **persons**: Add flag to overwrite person database
+  ([`0d36b75`](https://github.com/cobdh/dev/commit/0d36b75ed78791cd5c454076f11a10eb7cd89bcb))
+
+- **persons**: Add method to convert person to xml
+  ([`febbd05`](https://github.com/cobdh/dev/commit/febbd056eb1abd6831842a0460c53b1561635b64))
+
+- **persons**: Add method to improve forenames
+  ([`a020c93`](https://github.com/cobdh/dev/commit/a020c934330fe1c536077534ba4c68db7992e4be))
+
+- **persons**: Add nameLink if required
+  ([`95a3883`](https://github.com/cobdh/dev/commit/95a3883b8d6fa5158239113f2b51b780fb90e6cd))
+
+- **persons**: Add parser to determine person xml ids
+  ([`5773386`](https://github.com/cobdh/dev/commit/57733867d5af6e6daf060d02eb63980b39dae034))
+
+- **persons**: Add person parser
+  ([`b09735a`](https://github.com/cobdh/dev/commit/b09735a96af4ccc34706a7d59706907fae8388fe))
+
+- **persons**: Clean persons id
+  ([`2551519`](https://github.com/cobdh/dev/commit/2551519b4582ba644253c1791fad85a49d1cf40b))
+
+- **persons**: Do not overwrite already generated persons
+  ([`b62dafe`](https://github.com/cobdh/dev/commit/b62dafe32b06748c1bcbd27c26f16d88b45efdfb))
+
+- **persons**: Parse multiple persName inside author tags
+  ([`3d768c6`](https://github.com/cobdh/dev/commit/3d768c682cf974c39f31c0b79977bcfa2d2bdd17))
+
+- **persons**: Split simple authors by forename and name
+  ([`197b242`](https://github.com/cobdh/dev/commit/197b2426cdd74b706abcf7bd2317101d1f5ab562))
+
+- **persons**: Split surname if required
+  ([`8edc48f`](https://github.com/cobdh/dev/commit/8edc48f42f262ed084f27856c125f10e30d3174a))
+
+- **persons**: Strip simple authors
+  ([`99bc298`](https://github.com/cobdh/dev/commit/99bc298ceb8195b2ce81598e5299e972f07e5905))
+
+- **persons**: Use generator to determine outpath
+  ([`36daada`](https://github.com/cobdh/dev/commit/36daada11dee213fd1f390f7f45b29c7f16b01d3))
+
+- **persons**: Use improved person hasher
+  ([`339fc98`](https://github.com/cobdh/dev/commit/339fc98c193afef5549ef9316080fdc9c5d73d6e))
+
+- **persons**: Use simple author if not complex author is given
+  ([`0288ad7`](https://github.com/cobdh/dev/commit/0288ad7cb5549bae07232b37870d7618097b08da))
+
+- **setup**: Add cli to crawl url
+  ([`612e50b`](https://github.com/cobdh/dev/commit/612e50b2ee5a140a8749b365b5d5c0c447235db0))
+
+- **str**: Add method to log error
+  ([`29d2cb4`](https://github.com/cobdh/dev/commit/29d2cb4406fddcb5424fea59485f29f4467799d6))
+
+- **str**: Add method to safely log str
+  ([`7db4c8f`](https://github.com/cobdh/dev/commit/7db4c8f72dcde375d3b8cf4e8c244bc440d50c5f))
+
+- **string**: Add method to replace special chars
+  ([`4e5ae88`](https://github.com/cobdh/dev/commit/4e5ae881ba8e79ec269a2402409062005092c4e8))
+
+- **utils**: Add method to create file
+  ([`f112592`](https://github.com/cobdh/dev/commit/f112592f93c2aca307c5715279800b5c8dd9cf6f))
+
+- **utils**: Add method to ensure data type
+  ([`41e96c0`](https://github.com/cobdh/dev/commit/41e96c08f2fdb0588b2486536e0b1c9d24fefbdf))
+
+- **utils**: Add method to escape invalid characters
+  ([`8d09ea9`](https://github.com/cobdh/dev/commit/8d09ea9785561cb46f8078a8eec5f2da9827999f))
+
+- **utils**: Add method to join path
+  ([`898305d`](https://github.com/cobdh/dev/commit/898305d65d26156abd735b431b201b13739f2615))
+
+- **utils**: Add method to list files
+  ([`cb5b282`](https://github.com/cobdh/dev/commit/cb5b28254889bbbea042e4b2c6000dee35914375))
+
+- **utils**: Add method to read and write files
+  ([`684f954`](https://github.com/cobdh/dev/commit/684f9543a8c22f609cb4981c594f53fc4f20525a))
+
+- **utils**: Add method to run shell cmd
+  ([`b89ca67`](https://github.com/cobdh/dev/commit/b89ca6748fa45339a22ea398026a02c0b574dde5))
+
+- **utils**: Add method to sort files by file name
+  ([`997e207`](https://github.com/cobdh/dev/commit/997e207e421f9b1593995552152d7d300c591622))
+
+- **utils**: Add newline constant
+  ([`938840e`](https://github.com/cobdh/dev/commit/938840e1fa9013a89454cc6862dc251a02f1f810))
+
+- **utils**: Add parameter to select file type
+  ([`82f35c3`](https://github.com/cobdh/dev/commit/82f35c3eb7a371760d83ee7febe7563ffd537470))
+
+- **utils**: Log failed execution
+  ([`ab41bca`](https://github.com/cobdh/dev/commit/ab41bca385692c12cba4d984c6e0f0371aabf0db))
+
+- **utils**: Sort file list by name
+  ([`37ea641`](https://github.com/cobdh/dev/commit/37ea64105f34aefd6525d37a1baddd9e4640d9be))
+
+- **utils**: Verify shell result
+  ([`f71bbb4`](https://github.com/cobdh/dev/commit/f71bbb4a4c77f08cc218d8af6bbedc844497a75b))
+
+- **xml**: Add cli to format files
+  ([`03b70ba`](https://github.com/cobdh/dev/commit/03b70ba320885b58e47f48ce905300cae270ff70))
+
+- **xml**: Add cli to split xml-TEI files
+  ([`702cdaf`](https://github.com/cobdh/dev/commit/702cdaf6480e54ed705e2824b114059d80bc6ee1))
+
+- **xml**: Add method to format xml
+  ([`d67164a`](https://github.com/cobdh/dev/commit/d67164a23a983efd08599da4021a5e8fcfc1668c))
+
+- **xml**: Add method to split xml file
+  ([`f76cc42`](https://github.com/cobdh/dev/commit/f76cc424bcbb3e2b312de8c6c3c001f221af527a))
+
+- **xml**: Add option to format different files
+  ([`d077529`](https://github.com/cobdh/dev/commit/d0775290d683159588363a7a5e3207f1f6a55a7b))
+
+- **xml**: Make xml more compact
+  ([`cc65ffc`](https://github.com/cobdh/dev/commit/cc65ffc88c9df435c3def564020043e2ef687836))
+
+- **xml**: Make xml more compact
+  ([`54454c7`](https://github.com/cobdh/dev/commit/54454c7f9f87334cdd1e6dcfa31bd44371e97412))
+
+- **xml**: Normalize white spaces
+  ([`b3f1ec5`](https://github.com/cobdh/dev/commit/b3f1ec51db0c558aed4a1af966df0a024bdf9e8b))
+
+### Refactoring
+
+- **cli**: Move cli to separate package
+  ([`5b9f8ac`](https://github.com/cobdh/dev/commit/5b9f8ac1cb1275dca66085b3c147708e269106bf))
+
+- **cli**: Rename application name
+  ([`c4e0b7c`](https://github.com/cobdh/dev/commit/c4e0b7c07fb901d6a45515c1f109d3873759367b))
+
+- **cli**: Replace with utils code
+  ([`1f956c5`](https://github.com/cobdh/dev/commit/1f956c5e5baac8275cdc3f55154b2d8c697f3d91))
+
+- **cli**: Simplify code
+  ([`fe161c6`](https://github.com/cobdh/dev/commit/fe161c6df6045ea0839cf2ecff1565a178c071cd))
+
+- **cli**: Use public API
+  ([`3c02a46`](https://github.com/cobdh/dev/commit/3c02a46d765c63b7705e93096f19e4b7f603d554))
+
+- **enrich**: Reduce complexity
+  ([`90c936c`](https://github.com/cobdh/dev/commit/90c936c371ad3ef5ff32520396b29a7413a1712a))
+
+- **error**: Use simple error logger
+  ([`31bf17e`](https://github.com/cobdh/dev/commit/31bf17ee8ccfefc8b41052f96786fbf7e870b774))
+
+- **fix**: Reduce complexity
+  ([`92fc7b6`](https://github.com/cobdh/dev/commit/92fc7b6ee6da840950e559a5b141798abb39920d))
+
+- **fix**: Reduce complexity
+  ([`0f26a91`](https://github.com/cobdh/dev/commit/0f26a9195a586e35ee88b4040b3fe2e6eaec91b7))
+
+- **path**: Use new path method
+  ([`8faa810`](https://github.com/cobdh/dev/commit/8faa810d908f73b076accfb5b2d3a582ad1cdb70))
+
+- **persons**: Clarify code
+  ([`857a39a`](https://github.com/cobdh/dev/commit/857a39afbc94ba4cc45de1a5c2efbaf70d0b622c))
+
+- **persons**: Make interface more robust
+  ([`1d8bf26`](https://github.com/cobdh/dev/commit/1d8bf268214d64533360e8196c9d9875c5b72feb))
+
+- **persons**: Move into separate package
+  ([`85a834d`](https://github.com/cobdh/dev/commit/85a834d2f12248240f7416f9639eaa8655f5ddf6))
+
+- **persons**: Move name improver to separate module
+  ([`dff049f`](https://github.com/cobdh/dev/commit/dff049f07e747ef0b1db357e32d5feea4ec124e0))
+
+- **persons**: Move parser into separate module
+  ([`65cbb44`](https://github.com/cobdh/dev/commit/65cbb44ab87921652f1360eacaac24dfc44e4caf))
+
+- **persons**: Reduce complexity
+  ([`40de29d`](https://github.com/cobdh/dev/commit/40de29dcb8a89cbc7853e392929a395722a5a23b))
+
+- **persons**: Remove duplicated code
+  ([`c55bc5a`](https://github.com/cobdh/dev/commit/c55bc5aa59127211f7d2ae7ec87df9384b16f5f2))
+
+- **split**: Verify file existence before trying to load
+  ([`a3c91bc`](https://github.com/cobdh/dev/commit/a3c91bc3e522eeb6de1fc212784100e5a4504b29))
+
+- **tests**: Move unit tests
+  ([`73b2df9`](https://github.com/cobdh/dev/commit/73b2df93a2ef68528edb3f4df8213cee3605d6e8))
+
+- **utils**: Move constant
+  ([`fbfc120`](https://github.com/cobdh/dev/commit/fbfc120fcd5f8403a93ec95ce9f898c72fe299e1))
+
+- **xml**: Clarify naming
+  ([`cbaa863`](https://github.com/cobdh/dev/commit/cbaa863b7644f9e6a1145507d7e15e5d8125cb9f))
+
+- **xml**: Move parer to separate module
+  ([`43084ee`](https://github.com/cobdh/dev/commit/43084ee5cac896e14aaa106614b6fa24a2514ab1))
+
+- **xml**: Reduce complexity
+  ([`c761701`](https://github.com/cobdh/dev/commit/c76170135d564d8893cc06902a4f630c0d6e1b3e))
+
+- **xml**: Reduce duplication
+  ([`d8a6d2c`](https://github.com/cobdh/dev/commit/d8a6d2c3c43de5bbd00dd7d33dd05902c59da7fa))
+
+- **xml**: Remove duplication
+  ([`3abcce8`](https://github.com/cobdh/dev/commit/3abcce8ec53b7928b3dc00d64550dbadf1d50339))
+
+- **xml**: Use new assert
+  ([`6ab61c2`](https://github.com/cobdh/dev/commit/6ab61c27492ce65e4063735e24ccf3b0ca7885e9))
+
+### Testing
+
+- **bibl**: Add Arabic author
+  ([`5b148e3`](https://github.com/cobdh/dev/commit/5b148e3149e41e2b0ff7ac55807c241a628d8835))
+
+- **bibl**: Add duplicated xml id
+  ([`2e8d678`](https://github.com/cobdh/dev/commit/2e8d6785ad596a05b3cd7aacad75c72992580a20))
+
+- **bibl**: Add idem editor
+  ([`040b191`](https://github.com/cobdh/dev/commit/040b191ecc1cb8abe57ee408a12d6d2165436d4c))
+
+- **bibl**: Add raw string author
+  ([`4f4e357`](https://github.com/cobdh/dev/commit/4f4e357786306ccdc97b57a45330b625028d2030))
+
+- **enrich**: Verify xml enrichment application
+  ([`35cc4ea`](https://github.com/cobdh/dev/commit/35cc4eaed87e5220508a27f3cb1161838a52365a))
+
+- **fix**: Increase test cov
+  ([`7ced58f`](https://github.com/cobdh/dev/commit/7ced58fb8b45b78b964a320409e324e70c75b5fd))
+
+- **fixture**: Add fixture with 3 files without TEI header
+  ([`27d3dd7`](https://github.com/cobdh/dev/commit/27d3dd785f3f12342459e73c4e19dfaa240a37d6))
+
+- **persons**: Add list of sample persons
+  ([`03914a5`](https://github.com/cobdh/dev/commit/03914a5ed27005930b82224e9fddacc49eb42bf0))
+
+- **persons**: Increase test coverage
+  ([`199ff57`](https://github.com/cobdh/dev/commit/199ff57c4bbef8adfd418c76169bd0251171928f))
+
+- **persons**: Reduce complexity
+  ([`93327e4`](https://github.com/cobdh/dev/commit/93327e437419091225cc6317d5f32920cff66f03))
+
+- **persons**: Verify idem parser
+  ([`edf6f4e`](https://github.com/cobdh/dev/commit/edf6f4e66d0800d89346f90f6c75794909ded911))
+
+- **refactor**: Move test into separate package
+  ([`295a85a`](https://github.com/cobdh/dev/commit/295a85a042d7445b500d7659a297967c96d75c9c))
+
+- **xml**: Verify xml formatter
+  ([`a0a81e7`](https://github.com/cobdh/dev/commit/a0a81e707b1a9b47bfb5ee378d3077e12bfee7aa))
+
 
 ## v0.1.0 (2023-02-11)
 
-### Feature
+### Features
 
-* add editor env (8ce78f3d08d5)
+- **config**: Add editor env
+  ([`8ce78f3`](https://github.com/cobdh/dev/commit/8ce78f3d08d5cfd3ad19c50c658475f70f5d1a77))
+
+
+## v0.0.0 (2023-02-11)
+
+- Initial Release

@@ -21,7 +21,7 @@ classifiers = [
 
 [project.optional-dependencies]
 dev = [
-    "baw==1.79.0"
+    "baw==1.79.10"
 ]
 
 [project.urls]
@@ -31,7 +31,7 @@ Repository = "https://github.com/cobdh/dev"
 [build-system]
 requires = [
     "setuptools>=82.0.1",
-    "wheel>=0.46.3"
+    "wheel>=0.47.0"
 ]
 build-backend = "setuptools.build_meta"
 
